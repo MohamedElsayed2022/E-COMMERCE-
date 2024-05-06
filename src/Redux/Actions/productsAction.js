@@ -1,12 +1,13 @@
-import { CREATE_SUBCATEGORY, GET_ERROR, GET_SUB_CATEGORY } from "../type"
-import { useInsertData } from "../../hooks/useInsertData"
+import { CREATE_PRODUCT, GET_ALL_PRODUCTS, GET_ERROR } from "../type"
+import { useInsertDataWithImage } from "../../hooks/useInsertData"
 import useGetData from "../../hooks/useGetData"
 
-export const createSubCategory =(data)=> async(dispatch)=>{
+export const createProduct =(data)=> async(dispatch)=>{
     try{
-      const response = await useInsertData(`/api/v1/subcategories` , data )
+      const response = await useInsertDataWithImage(`/api/v1/products` , data )
+      console.log(response.data)
       dispatch( {
-       type : CREATE_SUBCATEGORY,
+       type : CREATE_PRODUCT,
        payload : response ,
        loading : true
       })
@@ -20,12 +21,12 @@ export const createSubCategory =(data)=> async(dispatch)=>{
 
 //get sub-category depend on category id
 
-export const getOneCategory =(id)=> async(dispatch)=>{
+export const getAllProducts =(id)=> async(dispatch)=>{
   try{
-    const response = await useGetData(`/api/v1/categories/${id}/subcategories`)
+    const response = await useGetData(`/api/v1/products`)
     console.log(response.data)
     dispatch( {
-     type : GET_SUB_CATEGORY,
+     type : GET_ALL_PRODUCTS,
      payload : response ,
      loading : true
     })
