@@ -23,11 +23,11 @@ const ProductCard = ({item}) => {
                   boxShadow: "0 2px 2px 0 rgba(151 , 151 , 151 , .5)",
                 }}
               >
-                <Link to="/products/:id" style={{textDecoration:"none"}}>
+                <Link to={`/products/${item._id}`} style={{textDecoration:"none"}}>
                    <Card.Img variant="top" src={item.imageCover} style={{height:"228px" , width:"100%" }} />
                 </Link>
-                <div className="d-flex justify-content-end mx-2">
-                    <img src={item.images[0]} alt="" className="text-center" style={{height:"24px" , width:"26px"}}/>
+                <div className="d-flex justify-content-end mx-2 mt-3">
+                    <img src={favoff} alt="" className="text-center" style={{height:"24px" , width:"26px"}}/>
                 </div>
                 <Card.Body>
                   <Card.Title>

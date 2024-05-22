@@ -5,11 +5,12 @@ import { getOneCategory } from "../../Redux/Actions/subcategoryAction";
 import {
   createProduct,
   getAllProducts,
+  getOneProduct,
 } from "../../Redux/Actions/productsAction";
 import notify from "../../hook/useNotification";
 import { useEffect, useState } from "react";
 
-const AdminAddProductHook = () => {
+const AdminEditProductHook = (id) => {
   const [images, setImages] = useState([]);
   const [prodName, setProdName] = useState("");
   const [prodDescription, setProdDescription] = useState("");
@@ -29,11 +30,37 @@ const AdminAddProductHook = () => {
   const brand = useSelector((state) => state.allbrand.brand);
   const subcategory = useSelector((state) => state.subcategory.subcategory);
   const product = useSelector((state) => state.allproducts.products);
+  const item = useSelector((state) => state.allproducts.oneProduct);
+
   useEffect(() => {
     // if(product)
-    dispatch(getAllProducts());
-    dispatch(getAllBrand())
+        const run = async ()=>{
+           await dispatch(getAllProducts());
+           await dispatch(getAllBrand())
+           await dispatch(getOneProduct(id));
+        }
+        run()
+   
+
   }, []);
+
+  useEffect(()=>{
+      if(item.data)
+        {
+            setProdName(item.data.title)
+            setProdDescription(item.data.description)
+            setPriceAfter(item.data.price)
+            setPriceBefore(item.data.priceBefore)
+            setQty(item.data.quantity)
+            setCatID(item.data.category)
+            setBrandID(item.data.brand)
+            setSelectedSubID(item.data.subCategoryID)
+            setColors(item.data.availableColors)
+            setOptions(item.data.subCategoryID)
+            
+        }
+  },[item])
+ 
 
   // if (category) console.log(category.data);
 
@@ -79,73 +106,25 @@ const AdminAddProductHook = () => {
   };
    //to convert base 64 to file
    function dataURLtoFile(dataurl, filename) {
-    const [header, base64Data] = dataurl.split(',');
-    const mime = header.match(/:(.*?);/)[1];
-    const binaryString = atob(base64Data);
-    const len = binaryString.length;
-    const uint8Array = new Uint8Array(len);
 
-    for (let i = 0; i < len; i++) {
-        uint8Array[i] = binaryString.charCodeAt(i);
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
     }
 
-    return new File([uint8Array], filename, { type: mime });
+    return new File([u8arr], filename, { type: mime });
 }
-
 
   //insert data with images
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!navigator.onLine) {
-      notify(" هناك مشكلة فى الاتصال ب الانترنت", "warn");
-      return;
-    }
-    if(priceBefore <= priceAfter){
-        console.log("لازما السعر بعد يكون اقل من السعر قبل")
-        notify("السعر بعد الخصم يجب ان يكون اقل من السعر قبل الخصم", "warn");   
-        return
-    }
-    if (
-      CatID === 0 ||
-      prodName === "" ||
-      prodDescription === "" ||
-      images.length <= 0 ||
-      priceBefore <= 0
-    ) {
-      
-      console.log("من فضلك املئ كل الحقول");
-      notify("من فضلك قم بتعبئة جميع الحقول", "warn");
-      return;
-    }
+   
 
-    //convert image base 64 to file
-    const imageCover = dataURLtoFile(images[0], Math.random() + ".png");
-    //convert array of images base 64 to file
-    const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
-      (item, index) => dataURLtoFile(images[index], Math.random() + ".png")
-    );
 
-    console.log(imageCover);
-    const formData = new FormData();
-    formData.append("title", prodName);
-    formData.append("description", prodDescription);
-    formData.append("price", priceAfter);
-    formData.append("category", CatID);
-    formData.append("images", images);
-    formData.append("quantity", qty);
-    formData.append("brand", BrandID);
-    formData.append("imageCover", imageCover);
-    selectedSubID.map((item) => formData.append("subcategory", item._id));
-    colors.map((color) => formData.append("availableColors", color));
-    itemImages.map((item) => formData.append("images", item));
-    console.log(images);
-    setTimeout(async () => {
-      setLoading(true);
-      await dispatch(createProduct(formData));
-      setLoading(false);
-    }, 1000);
-
-    notify("تم اضافة المنتج بنجاح", "success");
   };
   useEffect(() => {
     if (loading === false) {
@@ -188,6 +167,8 @@ const AdminAddProductHook = () => {
     setPriceAfter(e.target.value)
   }
   return [
+    CatID,
+    BrandID,
     images,
     setImages,
     prodName,
@@ -216,4 +197,4 @@ const AdminAddProductHook = () => {
   ];
 };
 
-export default AdminAddProductHook;
+export default AdminEditProductHook;

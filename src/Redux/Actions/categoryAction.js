@@ -1,6 +1,6 @@
 import useGetData from "../../hooks/useGetData"
 import { useInsertDataWithImage } from "../../hooks/useInsertData"
-import { CREATE_CATEGORY, GET_ALL_CATEGORIES, GET_ERROR } from "../type"
+import { CREATE_CATEGORY, GET_ALL_CATEGORIES, GET_ERROR, GET_ONE_CATEGORY } from "../type"
 
 export const getAllCategory =(limit)=> async(dispatch)=>{
  try{
@@ -31,6 +31,23 @@ export const getAllCategoryPage =(page)=> async(dispatch)=>{
         })
   }
  }
+
+ //get one gategory
+ export const getOneCategory =(id)=> async(dispatch)=>{
+  try{
+    const response = await useGetData(`/api/v1/categories/${id}`)
+    dispatch( {
+     type : GET_ONE_CATEGORY ,
+     payload : response 
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ERROR ,
+         payload :"ERROR : " + e 
+        })
+  }
+ }
+
 
  export const createCategory =(formData)=> async(dispatch)=>{
   try{

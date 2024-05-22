@@ -11,7 +11,7 @@ const AddCategoryHook = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPress, setIsPress] = useState(false);
-  const res = useSelector(state => state.allCategory.category)
+  const res = useSelector(state => state.allcategory.category)
 
   const dispatch = useDispatch();
   const onChangeName = (event) => {

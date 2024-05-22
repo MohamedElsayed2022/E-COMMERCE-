@@ -1,6 +1,7 @@
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS, GET_ERROR } from "../type"
+import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ERROR, GET_ONE_PRODUCT, GET_PRODUCT_LIKE } from "../type"
 import { useInsertDataWithImage } from "../../hooks/useInsertData"
 import useGetData from "../../hooks/useGetData"
+import useDeleteData from "../../hooks/useDeleteData"
 
 export const createProduct =(data)=> async(dispatch)=>{
     try{
@@ -19,14 +20,90 @@ export const createProduct =(data)=> async(dispatch)=>{
     }
 }
 
-//get sub-category depend on category id
+//get all products 
 
-export const getAllProducts =(id)=> async(dispatch)=>{
+export const getAllProducts =(limit)=> async(dispatch)=>{
   try{
-    const response = await useGetData(`/api/v1/products`)
+    const response = await useGetData(`/api/v1/products?limit=${limit}`)
     console.log(response.data)
     dispatch( {
      type : GET_ALL_PRODUCTS,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ERROR ,
+         payload :"ERROR : " + e 
+        })
+  }
+}
+
+//get all products page
+
+export const getAllProductsPage =(page)=> async(dispatch)=>{
+  try{
+    const response = await useGetData(`api/v1/products?limit=10&page=${page}`)
+    console.log(response.data)
+    dispatch( {
+     type : GET_ALL_PRODUCTS,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ERROR ,
+         payload :"ERROR : " + e 
+        })
+  }
+}
+
+//get specific product depend on product id
+
+export const getOneProduct =(id)=> async(dispatch)=>{
+  try{
+    const response = await useGetData(`/api/v1/products/${id}`)
+    console.log(response.data)
+    dispatch( {
+     type : GET_ONE_PRODUCT,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ERROR ,
+         payload :"ERROR : " + e 
+        })
+  }
+}
+
+//get specific product depend on product id
+
+export const getProductLike =(id)=> async(dispatch)=>{
+  try{
+    const response = await useGetData(`api/v1/products/?category=${id}`)
+    console.log(response.data)
+    dispatch( {
+     type : GET_PRODUCT_LIKE,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ERROR ,
+         payload :"ERROR : " + e 
+        })
+  }
+}
+
+//delete specific product depend on product id
+
+export const deleteProduct =(id)=> async(dispatch)=>{
+  try{
+    const response = await useDeleteData(`api/v1/products/${id}`)
+    console.log(response.data)
+    dispatch( {
+     type : DELETE_PRODUCT,
      payload : response ,
      loading : true
     })

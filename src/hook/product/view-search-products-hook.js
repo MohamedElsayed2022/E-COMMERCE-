@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/Actions/productsAction";
 
-const ViewAllProductsHook = () => {
+const ViewSearchProductsHook = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
        dispatch(getAllProducts())
@@ -15,8 +15,9 @@ const ViewAllProductsHook = () => {
         items = []
 
     }
+
     return [items]
 
 }
 
-export default ViewAllProductsHook
+export default ViewSearchProductsHook
