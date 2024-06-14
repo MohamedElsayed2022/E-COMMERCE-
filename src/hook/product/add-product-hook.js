@@ -143,6 +143,7 @@ const AdminAddProductHook = () => {
       setLoading(true);
       await dispatch(createProduct(formData));
       setLoading(false);
+      notify("تم اضافة المنتج بنجاح", "success");
     }, 1000);
 
     notify("تم اضافة المنتج بنجاح", "success");

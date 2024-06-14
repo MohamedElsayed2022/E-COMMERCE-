@@ -12,7 +12,7 @@ const AdminEditProducts = () => {
     console.log(id)
     const  [
       CatID,
-    BrandID,
+      BrandID,
       images,
       setImages,
       prodName,

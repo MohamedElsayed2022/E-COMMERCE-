@@ -6,6 +6,7 @@ import {
   createProduct,
   getAllProducts,
   getOneProduct,
+  updateProducts,
 } from "../../Redux/Actions/productsAction";
 import notify from "../../hook/useNotification";
 import { useEffect, useState } from "react";
@@ -47,10 +48,11 @@ const AdminEditProductHook = (id) => {
   useEffect(()=>{
       if(item.data)
         {
+            setImages(item.data.images)
             setProdName(item.data.title)
             setProdDescription(item.data.description)
-            setPriceAfter(item.data.price)
-            setPriceBefore(item.data.priceBefore)
+            // setPriceAfter(item.data.price)
+            setPriceBefore(item.data.price)
             setQty(item.data.quantity)
             setCatID(item.data.category)
             setBrandID(item.data.brand)
@@ -78,19 +80,23 @@ const AdminEditProductHook = (id) => {
     setSelectedSubID(selectedList);
   };
   const onSelectCategory = async (e) => {
-    if (e.target.value != 0) {
-      await dispatch(getOneCategory(e.target.value));
-    }
-
     setCatID(e.target.value);
   };
   useEffect(() => {
     if (CatID != 0) {
-      if (subcategory.data) {
-        setOptions(subcategory.data);
-      }
+       const run = async()=>{
+         await dispatch(getOneCategory(CatID))
+       }
+       run()
+     
     }
   }, [CatID]);
+
+  useEffect(()=>{
+    if (subcategory.data) {
+      setOptions(subcategory.data);
+    }
+  },[subcategory])
   const onSelectedBrand = (e) => {
     setBrandID(e.target.value);
   };
@@ -105,24 +111,75 @@ const AdminEditProductHook = (id) => {
     setColors(newColors);
   };
    //to convert base 64 to file
-   function dataURLtoFile(dataurl, filename) {
+//    function dataURLtoFile(dataurl, filename) {
 
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
+//     var arr = dataurl.split(','),
+//         mime = arr[0].match(/:(.*?);/)[1],
+//         bstr = atob(arr[1]),
+//         n = bstr.length,
+//         u8arr = new Uint8Array(n);
 
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
+//     while (n--) {
+//         u8arr[n] = bstr.charCodeAt(n);
+//     }
 
-    return new File([u8arr], filename, { type: mime });
-}
+//     return new File([u8arr], filename, { type: mime });
+// }
 
   //insert data with images
   const handleSubmit = async (e) => {
-   
+    alert("Hello World !")
+    e.preventDefault();
+    if (!navigator.onLine) {
+      notify(" هناك مشكلة فى الاتصال ب الانترنت", "warn");
+      return;
+    }
+    if(priceBefore <= priceAfter){
+        console.log("لازما السعر بعد يكون اقل من السعر قبل")
+        notify("السعر بعد الخصم يجب ان يكون اقل من السعر قبل الخصم", "warn");   
+        return
+    }
+    if (
+      CatID === 0 ||
+      prodName === "" ||
+      prodDescription === "" ||
+      images.length <= 0 ||
+      priceBefore <= 0
+    ) {
+      
+      console.log("من فضلك املئ كل الحقول");
+      notify("من فضلك قم بتعبئة جميع الحقول", "warn");
+      return;
+    }
+
+    //convert image base 64 to file
+    // const imageCover = dataURLtoFile(images[0], Math.random() + ".png");
+    //convert array of images base 64 to file
+    // const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
+    //   (item, index) => dataURLtoFile(images[index], Math.random() + ".png")
+    // );
+
+    const formData = new FormData();
+    formData.append("title", prodName);
+    formData.append("description", prodDescription);
+    formData.append("price", priceBefore);
+    formData.append("category", CatID);
+    formData.append("images", images);
+    formData.append("quantity", qty);
+    formData.append("brand", BrandID);
+    formData.append("imageCover", images[0]);
+    selectedSubID.map((item) => formData.append("subcategory", item._id));
+    colors.map((color) => formData.append("availableColors", color));
+    images.map((item) => formData.append("images", item));
+    console.log(images);
+    setTimeout(async () => {
+      setLoading(true);
+      await dispatch(updateProducts(id , formData));
+      setLoading(false);
+      notify("تم اضافة المنتج بنجاح", "success");
+    }, 1000);
+
+    notify("تم اضافة المنتج بنجاح", "success");
 
 
   };
@@ -131,19 +188,19 @@ const AdminEditProductHook = (id) => {
       setCatID(0);
       setColors([]);
       setImages([]);
-      setProdName("");
-      setProdDescription("");
+      setProdName('');
+      setProdDescription('');
       setPriceBefore("السعر قبل الخصم");
       setPriceAfter("السعر بعد الخصم");
       setQty("الكمية المتاحة");
       setBrandID(0);
-      setCatID(0);
-      setSelectedSubID(0);
+      // setCatID(0);
+      setSelectedSubID([]);
       setTimeout(() => setLoading(true), 1500);
 
       if (product) {
         if (product.status === 201) {
-          notify("تم الاضافة بنجاح", "success");
+          notify("تم التعديل بنجاح", "success");
         } else {
           notify("هناك مشكله", "error");
         }
