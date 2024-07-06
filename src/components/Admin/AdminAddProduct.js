@@ -126,8 +126,8 @@ const AdminAddProduct = () => {
           >
             <option value="0"> اختار ماركة</option>
             {brand.data
-              ? brand.data.map((item) => (
-                  <option value={item._id} key={item._id}>
+              ? brand.data.map((item , index) => (
+                  <option value={item._id} key={index}>
                     {item.name}
                   </option>
                 ))

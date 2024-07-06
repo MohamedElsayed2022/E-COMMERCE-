@@ -7,12 +7,16 @@ import CardProductsContainer from '../../components/Products/CardProductsContain
 import  Pagination from '../../components/utils/Pagination'
 import ViewSearchProductsHook from '../../hook/product/view-search-products-hook'
 const ShopProductPage = () => {
-  const [items] = ViewSearchProductsHook()
+  const [items , pagination , onPress , getProduct , results] = ViewSearchProductsHook()
+  if(pagination)
+    var pageCount = pagination
+  else
+    pageCount = 0
   return (
     <div style={{minHeight:"670px"}}>
           <CategoryHeader/>
           <Container>
-          <SearchCountResult title={`${items.length} نتيجة بحث ....`} />
+          <SearchCountResult onClick={getProduct} title={`${results} نتيجة بحث ....`} />
           <Row>
             <Col xs="2" sm="2" md="1" className='d-flex'>
                <SideFilter/>
@@ -22,7 +26,7 @@ const ShopProductPage = () => {
             </Col>
 
           </Row>
-          <Pagination/>
+          <Pagination pageCount={pageCount} onPress={onPress} />
           </Container>
 
     </div>

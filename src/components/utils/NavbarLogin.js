@@ -7,7 +7,12 @@ import Logo from '../../images/logo.png'
 import Login from '../../images/login.png'
 import Cart from '../../images/cart.png'
 import { Link } from "react-router-dom";
+import NavbarSearchHook from "../../hook/navbar/navbar-search-hook";
 const NavbarLogin = () => {
+  const [ OnChangeSearch , searchWord] = NavbarSearchHook()
+  let word = ""
+  if(localStorage.getItem("searchWord") != null)
+      word = localStorage.getItem("searchWord")
   return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
     <Container>
@@ -18,8 +23,9 @@ const NavbarLogin = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-        <FormControl
-                value="ابحث..."
+        <FormControl 
+        onChange={OnChangeSearch}
+                value={word}
                 type="search"
                 placeholder="ابحث..."
                 className="me-2 w-100 text-center"
