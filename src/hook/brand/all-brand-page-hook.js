@@ -1,5 +1,6 @@
 import {useSelector , useDispatch} from 'react-redux'
-import { getAllBrandPage } from '../../Redux/Actions/brandAction';
+import { getAllBrand, getAllBrandPage } from '../../Redux/Actions/brandAction';
+import { useEffect } from 'react';
 const AllBrandHook = () => {
   
     const dispatch = useDispatch();
@@ -12,9 +13,9 @@ const AllBrandHook = () => {
         console.log(pageCount)
       }
 
-    // useEffect(() => {
-    //   dispatch(getAllBrandPage(5));
-    // }, []);
+    useEffect(() => {
+      dispatch(getAllBrand(4));
+    }, []);
   
     const getPage = (page)=>{
       dispatch(getAllBrandPage(page));
