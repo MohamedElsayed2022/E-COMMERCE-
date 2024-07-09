@@ -5,41 +5,38 @@ import { getAllCategory } from "../../Redux/Actions/categoryAction";
 import SidebarSearchHook from "../../hook/search/sidebar-search-hook";
 
 const SideFilter = () => {
-    const [category , brand] = SidebarSearchHook()
+    const [category , brand , clickCategory , clickBrand] = SidebarSearchHook()
   return (
     <div className="mt-3">
       <Row>
         <div className="d-flex flex-column mt-2">
           <div className="filter-title">الفئة</div>
           <div className="d-flex mt-3">
-            <input type="checkbox" value="" />
+            <input onChange={clickCategory} type="checkbox" value="0" />
             <div className="filter-sub me-2 ">الكل</div>
           </div>
           {category && category.length > 0
             ? category.map((cat) => (
                 <div className="d-flex mt-2" key={cat._id}>
-                  <input type="checkbox" value="" />
+                  <input onChange={clickCategory} type="checkbox" value="" />
                   <div className="filter-sub me-2">{cat.name}</div>
                 </div>
               ))
             : <h6>لايوجد فئات</h6>}
 
-          <div className="d-flex mt-3">
-            <input type="checkbox" value="" />
-            <div className="filter-sub me-2 ">الكل</div>
-          </div>
+         
         </div>
 
         <div className="d-flex flex-column mt-2">
           <div className="filter-title mt-3">الماركة</div>
           <div className="d-flex mt-3">
-            <input type="checkbox" value="" />
+            <input onChange={clickBrand} type="checkbox" value="0" />
             <div className="filter-sub me-2 ">الكل</div>
           </div>
           {brand && brand.length > 0
             ? brand.map((brand) => (
                 <div className="d-flex mt-2" key={brand._id}>
-                  <input type="checkbox" value="" />
+                  <input onChange={clickBrand} type="checkbox" value="" />
                   <div className="filter-sub me-2">{brand.name}</div>
                 </div>
               ))
