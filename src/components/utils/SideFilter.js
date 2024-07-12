@@ -5,7 +5,10 @@ import { getAllCategory } from "../../Redux/Actions/categoryAction";
 import SidebarSearchHook from "../../hook/search/sidebar-search-hook";
 
 const SideFilter = () => {
-    const [category , brand , clickCategory , clickBrand] = SidebarSearchHook()
+    const [category , brand , clickCategory , clickBrand , PriceFrom , PriceTo] = SidebarSearchHook()
+    let localFrom = localStorage.getItem("PriceFrom")
+    let localTo = localStorage.getItem("PriceTo")
+
   return (
     <div className="mt-3">
       <Row>
@@ -18,7 +21,7 @@ const SideFilter = () => {
           {category && category.length > 0
             ? category.map((cat) => (
                 <div className="d-flex mt-2" key={cat._id}>
-                  <input onChange={clickCategory} type="checkbox" value="" />
+                  <input onChange={clickCategory} type="checkbox" value={cat._id} />
                   <div className="filter-sub me-2">{cat.name}</div>
                 </div>
               ))
@@ -36,7 +39,7 @@ const SideFilter = () => {
           {brand && brand.length > 0
             ? brand.map((brand) => (
                 <div className="d-flex mt-2" key={brand._id}>
-                  <input onChange={clickBrand} type="checkbox" value="" />
+                  <input onChange={clickBrand} type="checkbox" value={brand._id} />
                   <div className="filter-sub me-2">{brand.name}</div>
                 </div>
               ))
@@ -47,6 +50,8 @@ const SideFilter = () => {
         <div className="d-flex">
           <p className="filter-sub my-2">من:</p>
           <input
+          value={localFrom}
+          onChange={PriceFrom}
             className="m-2 text-center"
             type="number"
             style={{ width: "50px", height: "25px" }}
@@ -55,6 +60,8 @@ const SideFilter = () => {
         <div className="d-flex">
           <p className="filter-sub my-2">الي:</p>
           <input
+          value={localTo}
+          onChange={PriceTo}
             className="m-2 text-center"
             type="number"
             style={{ width: "50px", height: "25px" }}
