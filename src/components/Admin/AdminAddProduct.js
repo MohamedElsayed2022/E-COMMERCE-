@@ -1,10 +1,11 @@
 import React from "react";
-import { Col, Row, ToastContainer } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Multiselect from "multiselect-react-dropdown";
 import MultiImageInput from "react-multiple-image-input";
 import add from "../../images/add.png";
 import { CompactPicker } from "react-color";
 import AdminAddProductHook from "../../hook/product/add-product-hook";
+import { ToastContainer } from "react-toastify";
 
   
 const AdminAddProduct = () => {

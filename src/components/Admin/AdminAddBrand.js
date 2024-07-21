@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import avater from "../../images/avatar.png";
 import AddBrandHook from "../../hook/brand/add-brand-hook";
+import { ToastContainer } from "react-toastify";
+
 const AdminAddBrand = () => {
     const [
         img,
@@ -50,6 +52,9 @@ const AdminAddBrand = () => {
           <button onClick={handleSubmit} className="btn-save d-inline mt-2">حفظ التغييرات</button>
         </Col>
       </Row>
+      <ToastContainer />
+
+
     </div>
   );
 };

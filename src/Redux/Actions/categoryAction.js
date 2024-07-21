@@ -1,4 +1,4 @@
-import useGetData from "../../hooks/useGetData"
+import {useGetData }from "../../hooks/useGetData"
 import { useInsertDataWithImage } from "../../hooks/useInsertData"
 import { CREATE_CATEGORY, GET_ALL_CATEGORIES, GET_ERROR, GET_ONE_CATEGORY } from "../type"
 
