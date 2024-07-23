@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getOneProduct, getProductLike } from "../../Redux/Actions/productsAction";
 import mobile from "../../images/mobile.png";
 import { getOneCategory } from "../../Redux/Actions/categoryAction";
@@ -69,8 +69,9 @@ const ViewProductsDetailsHook = (prodID) => {
     const items = Array.isArray(prod) ? prod.slice(0, 4) : []
 
    
+   //[item, images, cat , brand , items , onChangeReview , onChangeStars , review ,stars ]
 
-  return [item, images, cat , brand , items];
+  return [item, images, cat , brand , items  ];
 };
 
 export default ViewProductsDetailsHook;

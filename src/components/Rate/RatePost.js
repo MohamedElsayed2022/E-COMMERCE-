@@ -1,8 +1,11 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
+import AddReviewHook from "../../hook/review/add-review-hook";
+import { ToastContainer } from "react-toastify";
 
-const RatePost = () => {
+const RatePost = ({id}) => {
+  const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddReviewHook(id)
   const secondExample = {
     size: 20,
     count: 5,
@@ -14,15 +17,28 @@ const RatePost = () => {
     emptyIcon: <i className="far fa-star" />,
     halfIcon: <i className="fa fa-star-half-alt" />,
     filledIcon: <i className="fa fa-star" />,
-    onChange: (newValue) => {
-      console.log(`Example 2: new value is ${newValue}`);
-    },
+    onChange: onChangeStars,
   };
+   if(review){
+    console.log(review)
+   }
+   if(stars){
+    console.log(stars)
+   }
+
+   const userData = localStorage.getItem("user")
+   var name = ""
+   if(userData){
+      var data = JSON.parse(localStorage.getItem("user"))
+      name = data.name
+   }
+
+
   return (
     <div>
       <Row className="mt-3 ">
         <Col sm="12" className="me-5 d-flex">
-          <div className="rate-name d-inline ms-3 mt-1">على محمد على</div>
+          <div className="rate-name d-inline ms-3 mt-1">  {name}</div>
           <ReactStars {...secondExample} />
         </Col>
       </Row>
@@ -33,12 +49,15 @@ const RatePost = () => {
               rows="2"
               cols="20"
               placeholder="اكتب تعليقك...."
+              onChange={onChangeReview}
+              value={review}
             />
             <div className=" d-flex justify-content-end al">
-              <div className="product-cart-add px-3  py-2 text-center d-inline">اضف تعليق</div>
+              <div className="product-cart-add px-3  py-2 text-center d-inline" onClick={onSubmit}>اضف تعليق</div>
             </div>
           </Col>
         </Row>
+        <ToastContainer/>
     </div>
   );
 };

@@ -5,7 +5,11 @@ import RateItem from "./RateItem";
 import RatePost from "./RatePost";
 import Pagination from '../utils/Pagination'
 import CardProductsContainer from '../Products/CardProductsContainer'
-const RateContainer = () => {
+import AddReviewHook from "../../hook/review/add-review-hook";
+const RateContainer = ({ allreviews , id , rateQty , rateAvg }) => {
+
+  // const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddReviewHook(id)
+
   return (
     <Container className="rate-container">
       <Row>
@@ -18,15 +22,19 @@ const RateContainer = () => {
             height="16px"
             width="16px"
           />
-          <div className="cat-rate d-inline  p-1 pt-2">4.3</div>
-          <div className="rate-count d-inline p-1 pt-2">(160 تقييم)</div>
+          <div className="cat-rate d-inline  p-1 pt-2">{rateQty}</div>
+          <div className="rate-count d-inline p-1 pt-2">({rateAvg} تقييم)</div>
         </Col>
       </Row>
-      <RatePost/>
-      <RateItem/>
-      <RateItem/>
-      <RateItem/>
-      <RateItem/>
+      <RatePost id={id}/>
+      {
+        allreviews ? (
+          allreviews.map(review => (
+            <RateItem key={review._id} review={review} />
+          ))
+
+        ): <h2 className="text-danger text-center mt-2">لاتوجد تقييمات</h2>
+      }
       <Pagination/>
 
     </Container>
