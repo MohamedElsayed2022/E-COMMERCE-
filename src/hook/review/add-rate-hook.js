@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createReview } from "../../Redux/Actions/reviewAction";
-import notify from "../../hook/useNotification";
+import notify from "../useNotification";
 
-const AddReviewHook = (prodID) => {
-  const [review, setReview] = useState("");
-  const [stars, setStars] = useState("");
+const AddRateHook = (prodID) => {
+  const [review, setReview] = useState('');
+  const [stars, setStars] = useState(0);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -13,12 +13,19 @@ const AddReviewHook = (prodID) => {
     setReview(e.target.value);
   };
   const onChangeStars = (newValue) => {
-      console.log(`Example 2: new value is ${newValue}`);
       setStars(newValue)
-    };
+  };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async () => {
+    if(stars === "" ){
+      notify("من فضلك اكمل هذا التقييم" , "error")
+      return
+    }
+    if(review === "" || review.length === 10){
+      notify("من فضلك اكمل هذا التقييم" , "error")
+      return
+
+    }
 
     setLoading(true);
     // await dispatch(
@@ -31,8 +38,8 @@ const AddReviewHook = (prodID) => {
     //   )
     // );
     await dispatch(createReview(prodID, {
-       review,
-      rating: stars
+      review: review,
+       rating: stars
   }))
     setLoading(false)
   };
@@ -54,7 +61,6 @@ const AddReviewHook = (prodID) => {
         }
     }
 }, [loading])
-  
 
   const allReviews = useSelector((state)=>state.review.allReviews)
 
@@ -65,7 +71,7 @@ const AddReviewHook = (prodID) => {
 
 
 
-  return [onChangeReview, onChangeStars, review, stars , onSubmit , reviews];
+  return [onChangeReview, onChangeStars, review, stars , onSubmit , reviews  ];
 };
 
-export default AddReviewHook;
+export default AddRateHook;

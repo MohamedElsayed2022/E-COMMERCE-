@@ -5,7 +5,7 @@ import RateItem from "./RateItem";
 import RatePost from "./RatePost";
 import Pagination from '../utils/Pagination'
 import CardProductsContainer from '../Products/CardProductsContainer'
-import AddReviewHook from "../../hook/review/add-review-hook";
+import AddReviewHook from "../../hook/review/add-rate-hook";
 const RateContainer = ({ allreviews , id , rateQty , rateAvg }) => {
 
   // const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddReviewHook(id)
@@ -22,8 +22,8 @@ const RateContainer = ({ allreviews , id , rateQty , rateAvg }) => {
             height="16px"
             width="16px"
           />
-          <div className="cat-rate d-inline  p-1 pt-2">{rateQty}</div>
-          <div className="rate-count d-inline p-1 pt-2">({rateAvg} تقييم)</div>
+          <div className="cat-rate d-inline  p-1 pt-2">{rateAvg}</div>
+          <div className="rate-count d-inline p-1 pt-2">({rateQty} تقييم)</div>
         </Col>
       </Row>
       <RatePost id={id}/>

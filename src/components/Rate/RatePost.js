@@ -1,11 +1,11 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
-import AddReviewHook from "../../hook/review/add-review-hook";
+import AddRateHook from "../../hook/review/add-rate-hook";
 import { ToastContainer } from "react-toastify";
 
 const RatePost = ({id}) => {
-  const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddReviewHook(id)
+  const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddRateHook(id)
   const secondExample = {
     size: 20,
     count: 5,
@@ -17,7 +17,9 @@ const RatePost = ({id}) => {
     emptyIcon: <i className="far fa-star" />,
     halfIcon: <i className="fa fa-star-half-alt" />,
     filledIcon: <i className="fa fa-star" />,
-    onChange: onChangeStars,
+    onChange: (newValue )=>{
+      onChangeStars(newValue)
+    },
   };
    if(review){
     console.log(review)
