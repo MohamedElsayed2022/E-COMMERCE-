@@ -45,7 +45,7 @@ const RegisterHook = () => {
   const validationValues = () => {
     // || !isValidName(name)
 
-    if (name === "" || name.length >= 8) {
+    if (name === "" ) {
       notify("يرجى ادخال اسم المستخدم", "error");
       return;
     }

@@ -26,17 +26,7 @@ const AddRateHook = (prodID) => {
       return
 
     }
-
     setLoading(true);
-    // await dispatch(
-    //   createReview(
-    //     prodID,
-    //     {
-    //       review,
-    //       rating: stars,
-    //     }
-    //   )
-    // );
     await dispatch(createReview(prodID, {
       review: review,
        rating: stars
@@ -62,16 +52,16 @@ const AddRateHook = (prodID) => {
     }
 }, [loading])
 
-  const allReviews = useSelector((state)=>state.review.allReviews)
+  // const allReviews = useSelector((state)=>state.review.allReviews)
 
-  let reviews = []
-  if(allReviews){
-    reviews = allReviews.data
-  }
+  // let reviews = []
+  // if(allReviews){
+  //   reviews = allReviews.data
+  // }
 
 
 
-  return [onChangeReview, onChangeStars, review, stars , onSubmit , reviews  ];
+  return [onChangeReview, onChangeStars, review, stars , onSubmit    ];
 };
 
 export default AddRateHook;

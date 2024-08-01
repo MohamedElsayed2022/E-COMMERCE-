@@ -7,6 +7,8 @@ import { useUpdateData } from "../../hooks/useUpdateData"
 export const createNewUser =(data)=> async(dispatch)=>{
     try{
       const response = await useInsertData(`/api/v1/auth/signup` , data )
+      console.log(response.data)
+
       dispatch( {
        type : CREATE_USER,
        payload : response ,
@@ -24,6 +26,7 @@ export const createNewUser =(data)=> async(dispatch)=>{
 export const loginUser =(data)=> async(dispatch)=>{
   try{
     const response = await useInsertData(`/api/v1/auth/login` , data )
+    console.log(response.data)
     dispatch( {
      type : LOGIN_USER,
      payload : response ,
@@ -41,6 +44,7 @@ export const loginUser =(data)=> async(dispatch)=>{
 export const getLoggedUser =()=> async(dispatch)=>{
   try{
     const response = await useGetData(`/api/v1/users/getMe`)
+    console.log(response.data)
     dispatch( {
      type : GET_CURRENT_USER,
      payload : response ,
@@ -58,6 +62,7 @@ export const getLoggedUser =()=> async(dispatch)=>{
 export const forgetPassword =(data)=> async(dispatch)=>{
   try{
     const response = await useInsertData(`/api/v1/auth/forgotPasswords` , data )
+    console.log(response.data)
     dispatch( {
      type : FORGET_PASSWORD,
      payload : response ,

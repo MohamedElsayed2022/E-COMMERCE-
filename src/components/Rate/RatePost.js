@@ -3,9 +3,10 @@ import { Col, Row } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import AddRateHook from "../../hook/review/add-rate-hook";
 import { ToastContainer } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const RatePost = ({id}) => {
-  const [onChangeReview, onChangeStars, review, stars , onSubmit , reviews] = AddRateHook(id)
+  const [onChangeReview, onChangeStars, review, stars , onSubmit    ] = AddRateHook(id)
   const secondExample = {
     size: 20,
     count: 5,

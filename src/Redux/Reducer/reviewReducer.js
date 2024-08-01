@@ -1,9 +1,10 @@
-import {  CREATE_REVIEW, GET_ALL_REVIEWS, GET_ERROR, GET_ONE_REVIEW } from "../type"
+import {  CREATE_REVIEW, DELETE_RATE_REVIEW, GET_ALL_REVIEWS, GET_ERROR, GET_ONE_REVIEW } from "../type"
 
 const inital = {
     addreview:[],
     oneReview : [],
     allReviews :[],
+    DeleteReview :[],
     loading : true,
 
 }
@@ -26,6 +27,11 @@ const reviewReducer = (state = inital , action)=>{
                         oneReview : action.payload ,
                         loading : false
                     }
+                    case DELETE_RATE_REVIEW:
+                        return {
+                            DeleteReview : action.payload ,
+                            loading : false
+                        }
             case GET_ERROR :
                 return { allReviews : action.payload , loading : true}
                 
