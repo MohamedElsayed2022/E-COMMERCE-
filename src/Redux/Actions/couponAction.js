@@ -78,10 +78,9 @@ export const getOneCoupon =(couponID)=> async(dispatch)=>{
 }
 
 // get one coupon
-export const editCoupon =(couponID)=> async(dispatch)=>{
+export const editCoupon =(couponID , body)=> async(dispatch)=>{
   try{
-    const response = await useUpdateData(`/api/v1/coupons/${couponID}` )
-    console.log(response.data)
+    const response = await useUpdateData(`/api/v1/coupons/${couponID}` , body )
     dispatch( {
      type : EDIT_COUPON,
      payload : response ,

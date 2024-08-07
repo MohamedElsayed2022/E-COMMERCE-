@@ -28,14 +28,11 @@ const AdminEditCoupon = () => {
       <Row className="justify-content-start">
         <Col sm="8">
           <input
-          ref={dataRef}
           value={couponDate}
           onChange={handleChangeDate}
             type="text"
             className="input-form d-block mt-3 px-3"
             placeholder=" تاريخ الانتهاء"
-            onFocus={()=>dataRef.current.type = "date"}
-            onBlur={()=>dataRef.current.type = "text"}
 
           />
        

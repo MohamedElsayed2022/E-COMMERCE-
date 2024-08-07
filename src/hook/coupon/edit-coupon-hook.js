@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import notify from '../useNotification';
 import { editCoupon, getOneCoupon } from '../../Redux/Actions/couponAction';
+import { useNavigate } from 'react-router-dom';
 
 const EditCouponHook = (id) => {
     const [couponName, setCouponName] =useState('');
@@ -9,6 +10,7 @@ const EditCouponHook = (id) => {
     const [couponDiscount, setCouponDiscount] = useState('');
     const [loading , setLoading] = useState(true)
     const [loadingData , setLoadingData] = useState(true)
+    const navigate = useNavigate()
     const formatDate = (dateString) => {
         const options = { year: "numeric", month: "numeric", day: "numeric" }
         return new Date(dateString).toLocaleDateString(undefined, options)
@@ -74,11 +76,11 @@ const EditCouponHook = (id) => {
     const handleSubmit = async (e)=>{
       e.persist()
       if(couponName === '' || couponDate === '' || couponDiscount === 0){
-          notify('برجاء ملئ الحقول ','error')
+          notify('برجاء ملئ الحقول ','warn')
           return
       }
       setLoading(true)
-       await dispatch(editCoupon(
+       await dispatch(editCoupon(id,
         {
             name: couponName ,
             expire: couponDate,
@@ -89,12 +91,21 @@ const EditCouponHook = (id) => {
       
     }  
     const editedCoupon = useSelector((state)=>state.coupon.editCoupon)
+
     useEffect(()=>{
         if(loading === false){
           if(editedCoupon){
             console.log(editedCoupon.data)
-            if(editedCoupon && editedCoupon.status === 201){
+            if(editedCoupon && editedCoupon.status === 200){
               notify("تم تعديل الكوبون بنجاح" , "success")
+              setTimeout(() => {
+                navigate("/admin/addcoupon")
+              }, 1000);
+              setCouponName('')
+              setCouponDate("")
+              setCouponDiscount('')
+            }else{
+              notify("هناك مشكلة فى تعديل الكوبون" , "error")
             }
           }
         }
