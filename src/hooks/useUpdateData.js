@@ -4,6 +4,8 @@ const useUpdateData = async (url, parmas) => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }
     const res = await baseUrl.put(url, parmas, config);
+    console.log(res)
+
     return res;
 }
 const useUpdateDataWithImage = async (url, parmas) => {
@@ -11,7 +13,7 @@ const useUpdateDataWithImage = async (url, parmas) => {
         headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${localStorage.getItem("token")}` }
     }
     const res = await baseUrl.put(url, parmas, config);
-    console.log(res.status)
+    console.log(res)
     return res;
 }
 export { useUpdateData , useUpdateDataWithImage }

@@ -5,7 +5,8 @@ import AddRateHook from "../../hook/review/add-rate-hook";
 import { ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
 
-const RatePost = ({id}) => {
+const RatePost = () => {
+  const {id} = useParams()
   const [onChangeReview, onChangeStars, review, stars , onSubmit    ] = AddRateHook(id)
   const secondExample = {
     size: 20,

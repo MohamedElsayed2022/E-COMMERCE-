@@ -16,7 +16,7 @@ const ViewAllReviewHook = (ProID) => {
     fetchReviews()
   }, [dispatch, ProID])
 
-  const allReviews = useSelector((state) => state.review.allReviews)
+  const allReview = useSelector((state) => state.review.allReviews)
 
   const onPress = async (page) => {
     setLoading(true)
@@ -24,7 +24,7 @@ const ViewAllReviewHook = (ProID) => {
     setLoading(false)
   }
 
-  return [allReviews, onPress, loading]
+  return [allReview, onPress]
 }
 
 export default ViewAllReviewHook

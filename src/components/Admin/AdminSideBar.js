@@ -35,6 +35,11 @@ const AdminSideBar = () => {
             اضف منتج
           </div>
         </Link>
+        <Link to="/admin/addcoupon" className="text-decoration-none">
+          <div className="admin-side-text mt-3 border-bottom p-2 mx-auto text-center">
+            اضف كود خصم
+          </div>
+        </Link>
       </div>
     </div>
   );

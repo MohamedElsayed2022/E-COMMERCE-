@@ -12,7 +12,6 @@ const DeleteRateHook = (review) => {
     const handleShow = () => setShowDelete(true);
 
   let user = JSON.parse(localStorage.getItem("user"))
-  console.log(user._id)
 
 
   useEffect(() => {
@@ -34,11 +33,12 @@ const res = useSelector((state)=>state.review.DeleteReview)
 
 useEffect(() => {
     if (loading === false) {
+        console.log(res)
         if (res === "") {
             notify("تم حذف التقييم بنجاح", "success")
             setTimeout(() => {
                 window.location.reload(false)
-            }, 1000);
+            }, 500);
         }
         else
             notify("هناك مشكله فى عملية الحذف", "error")

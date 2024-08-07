@@ -26,7 +26,7 @@ const ProductDetailsPage = () => {
       <CategoryHeader/>
       <Container>
         <ProductDetails />
-        <RateContainer allreviews={reviews} id={id} rateQty={rateQty} rateAvg={rateAvg}/>
+        <RateContainer allreviews={reviews}  rateQty={rateQty} rateAvg={rateAvg}/>
         <CardProductsContainer products={items} title="منتجات قد تعجبك"  />
       </Container>
     </div>

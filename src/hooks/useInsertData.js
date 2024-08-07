@@ -6,6 +6,7 @@ const useInsertData = async(url , params )=>{
         }
     }
    const res =await baseUrl.post(url , params , config )
+   console.log(res)
    return res
 }
 const useInsertDataWithImage = async(url , params )=>{
@@ -16,6 +17,8 @@ const useInsertDataWithImage = async(url , params )=>{
         }
     }
     const res =await baseUrl.post(url , params , config )
+    console.log(res)
+
     return res
  }
 export { useInsertData , useInsertDataWithImage }

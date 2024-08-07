@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import prod1 from '../../images/prod1.png'
 import favoff from '../../images/fav-off.png'
+import favon from '../../images/fav-on.png'
 import rate from '../../images/rate.png'
 import { Link } from "react-router-dom";
-const ProductCard = ({item}) => {
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToWishlist, removeProductFromWishlist } from "../../Redux/Actions/wishlistAction";
+import { ToastContainer } from "react-toastify";
+import notify from "../../hook/useNotification";
+import ProductCardHook from "../../hook/product/product-card-hook";
+const ProductCard = ({ item , favProd }) => {
+   const [favImg , handleFav ] = ProductCardHook(item , favProd)
   return (
     <>
 
@@ -23,11 +30,11 @@ const ProductCard = ({item}) => {
                   boxShadow: "0 2px 2px 0 rgba(151 , 151 , 151 , .5)",
                 }}
               >
-                <Link to={`/products/${item._id}`} style={{textDecoration:"none"}}>
-                   <Card.Img variant="top" src={item.imageCover} style={{height:"228px" , width:"100%" }} />
+                <Link to={`/products/${item._id}`} style={{ textDecoration: 'none' }}>
+                    <Card.Img style={{ height: "228px", width: "100%" }} src={item.imageCover} />
                 </Link>
                 <div className="d-flex justify-content-end mx-2 mt-3">
-                    <img src={favoff} alt="" className="text-center" style={{height:"24px" , width:"26px"}}/>
+                    <img src={favImg} alt="" onClick={handleFav} className="text-center" style={{height:"24px" , width:"26px", cursor:"pointer"}}/>
                 </div>
                 <Card.Body>
                   <Card.Title>
@@ -52,8 +59,9 @@ const ProductCard = ({item}) => {
                   </Card.Text>
                 </Card.Body>
               </Card>
+              <ToastContainer/>
             </Col>
-      
+        
      
     </>
    

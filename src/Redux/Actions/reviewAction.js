@@ -1,7 +1,8 @@
-import { CREATE_REVIEW, GET_ALL_REVIEWS, GET_ERROR , DELETE_RATE_REVIEW } from "../type"
+import { CREATE_REVIEW, GET_ALL_REVIEWS, GET_ERROR , DELETE_RATE_REVIEW, EDIT_RATE_REVIEW } from "../type"
 import { useInsertData } from "../../hooks/useInsertData"
 import { useGetData, useGetDataToken } from "../../hooks/useGetData"
 import useDeleteData from "../../hooks/useDeleteData"
+import { useUpdateData } from "../../hooks/useUpdateData"
 
 export const createReview =( id , data )=> async(dispatch)=>{
     try{
@@ -57,4 +58,20 @@ export const deleteReviewOnProduct = (id) => async (dispatch) => {
     }
 }
 
-//   DELETE_RATE_REVIEW
+//Edit  review to one product 
+export const updateReviewOnProduct = (id, body) => async (dispatch) => {
+    try {
+        const response = await useUpdateData(`/api/v1/reviews/${id}`, body);
+
+        dispatch({
+            type: EDIT_RATE_REVIEW,
+            payload: response,
+        })
+
+    } catch (e) {
+        dispatch({
+            type: EDIT_RATE_REVIEW,
+            payload: e.response,
+        })
+    }
+}
