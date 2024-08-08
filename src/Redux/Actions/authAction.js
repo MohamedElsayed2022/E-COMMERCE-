@@ -1,4 +1,4 @@
-import {  CREATE_USER, FORGET_PASSWORD, GET_CURRENT_USER, LOGIN_USER, RESET_PASSWORD, VERIFY_RESET_PASSWORD } from "../type"
+import {  CREATE_USER, FORGET_PASSWORD, GET_CURRENT_USER, LOGIN_USER, RESET_PASSWORD, UPDATE_USER_DATA, VERIFY_RESET_PASSWORD } from "../type"
 import { useInsertData } from "../../hooks/useInsertData"
 import {useGetData }from "../../hooks/useGetData"
 import { useUpdateData } from "../../hooks/useUpdateData"
@@ -111,3 +111,19 @@ export const resetPassword = (data) => async (dispatch) => {
       })
   }
 }
+
+// update user data
+export const updateUserData =(body)=> async(dispatch)=>{
+  try{
+      const response = await useUpdateData(`/api/v1/users/updateMe` , body)
+      dispatch( {
+       type : UPDATE_USER_DATA ,
+       payload : response 
+      })
+    }catch(e){
+       dispatch( {
+           type : UPDATE_USER_DATA ,
+           payload : e.response
+          })
+    }
+   }

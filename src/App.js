@@ -58,13 +58,13 @@ function App() {
         <Route path="/user/allorders" element={<UserAllOrdersPage/>}/>
         <Route path="/user/favoriteproducts" element={<UserFavoriteProductsPage/>}/>
         <Route path="/user/addresses" element={<UserAllAddressPage/>}/>
-        <Route path="/user/edit-address" element={<UserEditAddressPage/>}/>
+        <Route path="/user/edit-address/:id" element={<UserEditAddressPage/>}/>
         <Route path="/user/add-address" element={<UserAddAddressPage/>}/>
         <Route path="/user/profile" element={<UserProfilePage />} />  
         <Route path="/user/forget-password" element={<ForgetPasswordPage />} />  
         <Route path="/user/verify-reset-password" element={<VerifyResetPassword />} />  
         <Route path="/user/reset-password" element={<ResetPassword />} />  
-
+        AdminAllCategoriesPage
         /adinm/edit-coupon
 
 

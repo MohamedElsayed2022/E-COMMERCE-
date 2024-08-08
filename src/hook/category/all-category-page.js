@@ -7,7 +7,7 @@ const AllCategoryPage = () => {
     const category = useSelector((state) => state.allcategory.category);
     const loading = useSelector((state) => state.allcategory.loading);
     let pageCount = 0
-
+      
       if(category.paginationResult)
         pageCount = category.paginationResult.numberOfPages
 

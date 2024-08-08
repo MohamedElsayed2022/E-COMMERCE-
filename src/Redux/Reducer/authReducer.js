@@ -1,4 +1,4 @@
-import {  CREATE_USER, FORGET_PASSWORD, GET_CURRENT_USER, GET_ERROR, LOGIN_USER, RESET_PASSWORD, VERIFY_RESET_PASSWORD } from "../type"
+import {  CREATE_USER, FORGET_PASSWORD, GET_CURRENT_USER, GET_ERROR, LOGIN_USER, RESET_PASSWORD, UPDATE_USER_DATA, VERIFY_RESET_PASSWORD } from "../type"
 
 const inital = {
     user:[],
@@ -7,6 +7,7 @@ const inital = {
     forgetPassword : [],
     verifyResetPassword : [],
     resetPassword : [],
+    userProfile : [],
     loading : true,
 
 }
@@ -46,6 +47,14 @@ const authReducer = (state = inital , action)=>{
                                 resetPassword : action.payload ,
                                 loading : false
                             }
+                            case UPDATE_USER_DATA:
+                                return {
+                                    ...state,
+                                    userProfile : action.payload ,
+                                    loading : false
+                                }
+
+                            //userProfile
             case GET_ERROR :
                 return {...state , user : action.payload , loading : true}
                 

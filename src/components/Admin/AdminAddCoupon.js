@@ -57,6 +57,7 @@ const AdminAddCoupon = () => {
           </button>
         </Col>
       </Row>
+      <Col sm="8">
       {
         coupons ? ( 
             coupons.map((coupon , index) =>(
@@ -64,6 +65,8 @@ const AdminAddCoupon = () => {
             ))
         ) : (<h2 className='text-danger text-center justify-content-center align-items-center mt-3' >لا توجد خصومات حاليا</h2>)
       }
+      </Col>
+    
       <ToastContainer />
     </div>   
   )
