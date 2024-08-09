@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import notify from "../useNotification";
-import { updateUserData, updateUserPassword } from "../../Redux/Actions/authAction";
+import {
+  updateUserData,
+  updateUserPassword,
+} from "../../Redux/Actions/authAction";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const EditUserProfileHook = () => {
   // const [user, setUser] = useState("");
@@ -11,7 +15,7 @@ const EditUserProfileHook = () => {
   // }, []);
 
   let user = [];
-  if (localStorage.getItem("user") !== null){
+  if (localStorage.getItem("user") !== null) {
     user = JSON.parse(localStorage.getItem("user"));
   }
   const [show, setShow] = useState(false);
@@ -64,18 +68,18 @@ const EditUserProfileHook = () => {
         setTimeout(() => {
           window.location.reload(false);
         }, 1000);
-      }else{
+      } else {
         notify("هناك خطأ فى تحديث البيانات", "error");
       }
     }
   }, [loading]);
 
   // change Password
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [loadingPass , setLoadingPass] = useState(true)
-
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [loadingPass, setLoadingPass] = useState(true);
+  const navigate = useNavigate();
   const onChangeCurPass = (e) => {
     setOldPassword(e.target.value);
   };
@@ -85,38 +89,42 @@ const EditUserProfileHook = () => {
   const onChangePassConfirm = (e) => {
     setConfirmNewPassword(e.target.value);
   };
-  
+
   const resPass = useSelector((state) => state.auth.newPassword);
 
-  const handleChangePassword = async()=>{
-    if(newPassword === "" || confirmNewPassword === ""){
-        notify("من فضلك املأ جميع الحقول", "error");
-        return
+  const handleChangePassword = async () => {
+    if (newPassword === "" || confirmNewPassword === "") {
+      notify("من فضلك املأ جميع الحقول", "warn");
+      return;
     }
-    if(newPassword!== confirmNewPassword){
-        notify("كلمات المرور غير متطابقة", "error");
-        return
+    if (newPassword !== confirmNewPassword) {
+      notify("كلمات المرور غير متطابقة", "warn");
+      return;
     }
-    setLoadingPass(true)
-    await dispatch(updateUserPassword({
-        currentPassword : oldPassword,
-        password : newPassword,
-        passwordConfirm : confirmNewPassword
-    }))
-    setLoadingPass(false)
-        
-      
-  }
-    useEffect(()=>{
-      if(loadingPass === false){
-        if(resPass && resPass.status === 200){
-            console.log(res)
-            notify("تم تغيير كلمة السر بنجاح", "success");
-        }else{
-            notify("هناك خطأ فى تغيير كلمة السر", "error");
-        }
+    setLoadingPass(true);
+    await dispatch(
+      updateUserPassword({
+        currentPassword: oldPassword,
+        password: newPassword,
+        passwordConfirm: confirmNewPassword,
+      })
+    );
+    setLoadingPass(false);
+  };
+  useEffect(() => {
+    if (loadingPass === false) {
+      if (resPass && resPass.status === 200) {
+        notify("تم تغيير كلمة السر بنجاح", "success");
+        setTimeout(() => {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+          navigate("/login");
+        }, 1500);
+      } else {
+        notify("هناك خطأ فى تغيير كلمة السر", "warn");
       }
-    },[loadingPass])
+    }
+  }, [loadingPass]);
   return [
     show,
     onChangeEmail,
