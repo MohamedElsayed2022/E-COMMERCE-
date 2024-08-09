@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import notify from "../useNotification";
-import { updateUserData } from "../../Redux/Actions/authAction";
+import { updateUserData, updateUserPassword } from "../../Redux/Actions/authAction";
 
 const EditUserProfileHook = () => {
   // const [user, setUser] = useState("");
@@ -52,7 +52,7 @@ const EditUserProfileHook = () => {
     setLoading(false);
     setShow(false);
   };
-  
+
   const res = useSelector((state) => state.auth.userProfile);
   useEffect(() => {
     if (loading === false) {
@@ -70,6 +70,53 @@ const EditUserProfileHook = () => {
     }
   }, [loading]);
 
+  // change Password
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [loadingPass , setLoadingPass] = useState(true)
+
+  const onChangeCurPass = (e) => {
+    setOldPassword(e.target.value);
+  };
+  const onChangePass = (e) => {
+    setNewPassword(e.target.value);
+  };
+  const onChangePassConfirm = (e) => {
+    setConfirmNewPassword(e.target.value);
+  };
+  
+  const resPass = useSelector((state) => state.auth.newPassword);
+
+  const handleChangePassword = async()=>{
+    if(newPassword === "" || confirmNewPassword === ""){
+        notify("من فضلك املأ جميع الحقول", "error");
+        return
+    }
+    if(newPassword!== confirmNewPassword){
+        notify("كلمات المرور غير متطابقة", "error");
+        return
+    }
+    setLoadingPass(true)
+    await dispatch(updateUserPassword({
+        currentPassword : oldPassword,
+        password : newPassword,
+        passwordConfirm : confirmNewPassword
+    }))
+    setLoadingPass(false)
+        
+      
+  }
+    useEffect(()=>{
+      if(loadingPass === false){
+        if(resPass && resPass.status === 200){
+            console.log(res)
+            notify("تم تغيير كلمة السر بنجاح", "success");
+        }else{
+            notify("هناك خطأ فى تغيير كلمة السر", "error");
+        }
+      }
+    },[loadingPass])
   return [
     show,
     onChangeEmail,
@@ -78,6 +125,13 @@ const EditUserProfileHook = () => {
     handleClose,
     handleShow,
     handelEdit,
+    onChangeCurPass,
+    onChangePass,
+    onChangePassConfirm,
+    handleChangePassword,
+    oldPassword,
+    newPassword,
+    confirmNewPassword,
     name,
     email,
     phone,

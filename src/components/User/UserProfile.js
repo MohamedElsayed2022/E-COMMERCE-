@@ -5,7 +5,26 @@ import EditUserProfileHook from "../../hook/user/edit-user-profile-hook";
 import { ToastContainer } from "react-toastify";
 const UserProfile = () => {
   
-  const  [show, onChangeEmail , onChangeName , onChangePhone , handleClose, handleShow, handelEdit , name , email ,phone  , user] = EditUserProfileHook();
+  const  [
+    show,
+    onChangeEmail,
+    onChangeName,
+    onChangePhone,
+    handleClose,
+    handleShow,
+    handelEdit,
+    onChangeCurPass,
+    onChangePass,
+    onChangePassConfirm,
+    handleChangePassword,
+    oldPassword,
+    newPassword,
+    confirmNewPassword,
+    name,
+    email,
+    phone,
+    user,
+  ]= EditUserProfileHook();
 
   return (
     <div>
@@ -91,21 +110,32 @@ const UserProfile = () => {
           <Col xs="10" sm="8" md="6" className="">
             <div className="admin-content-text">تغير كملة المرور</div>
             <input
+            value={oldPassword}
+            onChange={onChangeCurPass}
               type="password"
-              className="input-form d-block mt-1 px-3"
+              className="input-form d-block mt-2 px-3"
               placeholder="ادخل كلمة المرور القديمة"
             />
             <input
+            value={newPassword}
+            onChange={onChangePass}
               type="password"
               className="input-form d-block mt-3 px-3"
-              placeholder="ادخل كلمة المرور الجديده"
+              placeholder="ادخل كلمة المرور الجديدة"
+            />
+            <input
+            value={confirmNewPassword}
+            onChange={onChangePassConfirm}
+              type="password"
+              className="input-form d-block mt-3 px-3"
+              placeholder="تأكيد كلمة المرور الجديده"
             />
           </Col>
         </Row>
 
         <Row>
           <Col xs="10" sm="8" md="6" className="d-flex justify-content-end ">
-            <button className="btn-save d-inline mt-2 ">حفظ كلمة السر</button>
+            <button className="btn-save d-inline mt-2 " onClick={handleChangePassword}>حفظ كلمة السر</button>
           </Col>
         </Row>
       </div>
