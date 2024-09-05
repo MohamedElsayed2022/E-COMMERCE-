@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productCart } from '../../Redux/Actions/cartAction'
 import notify from '../useNotification'
+import { getOneProduct } from '../../Redux/Actions/productsAction'
 
-const ViewProductInCart = () => {
+const ViewProductInCart = (product) => {
     const prod = useSelector((state)=>state.cart.productInCart)
     const [loading , setLoading] = useState(true)
     const [cartNum , setCartNum] = useState(null)
+    const [cartItems , setCartItems] = useState([])
+
     const dispatch = useDispatch()
     useEffect(()=>{
          const get = async()=>{
@@ -21,20 +24,24 @@ const ViewProductInCart = () => {
         if(loading === false){
             if(prod && prod.status === "success"){
                 setCartNum(prod.numOfCartItems)
+                setCartItems(prod.data.products)
+            }else{
+                setCartNum(0)
+                setCartItems([])
             }
         }
 
     },[loading])
 
-    let products = []
-    if(prod && prod.data) 
-        products = prod.data.products
-        
+
+
+
+  
 
 
     
 
-    return [cartNum , products]
+    return [cartNum , cartItems]
     
 }
 export default ViewProductInCart

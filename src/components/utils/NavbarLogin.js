@@ -32,8 +32,8 @@ const NavbarLogin = () => {
 
 // cart number
 
-const [cartNum , products] = ViewProductInCart()
-  if(cartNum)
+const [cartNum , cartItems] = ViewProductInCart()
+if(cartNum)
   console.log(cartNum)
     return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
