@@ -2,8 +2,10 @@ import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import CartItem from '../../components/Cart/CardItem'
 import CartCheckout from '../../components/Cart/CartCheckout'
+import ViewProductInCart from '../../hook/cart/view-product-in-cart'
 
 const CartPage = () => {
+  const [cartNum , products] = ViewProductInCart()
   return (
     <Container style={{minHeight:"670px"}}>
           <Row>
@@ -11,11 +13,12 @@ const CartPage = () => {
             </Row>
       <Row>
         <Col md="9" >
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+        {products ? (
+          products.map((product, index) => (
+            <CartItem key={index} product={product} />
+          ))
+        ) : (null)}
+          
 
         </Col>
         <Col md="3" > 

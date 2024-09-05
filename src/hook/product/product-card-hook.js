@@ -56,6 +56,8 @@ const ProductCardHook = (item , favProd) => {
                 notify("تمت اضافة المنتج للمفضلة بنجاح", "success")
             } else if (resAdd && resAdd.status === 401) {
                 notify("انتا غير مسجل", "error")
+            }else {
+                notify("قم بتسجيل الدخول اولا", "warn")
             }
         }
     }, [loadingAdd])

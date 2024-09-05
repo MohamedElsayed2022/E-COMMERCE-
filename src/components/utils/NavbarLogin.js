@@ -8,6 +8,7 @@ import Login from '../../images/login.png'
 import Cart from '../../images/cart.png'
 import { Link, useNavigate } from "react-router-dom";
 import NavbarSearchHook from "../../hook/navbar/navbar-search-hook";
+import ViewProductInCart from "../../hook/cart/view-product-in-cart";
 const NavbarLogin = () => {
   const [ OnChangeSearch , searchWord] = NavbarSearchHook()
   const navigate = useNavigate()
@@ -28,6 +29,12 @@ const NavbarLogin = () => {
     navigate("/login")
     
 }
+
+// cart number
+
+const [cartNum , products] = ViewProductInCart()
+  if(cartNum)
+  console.log(cartNum)
     return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
     <Container>
@@ -77,7 +84,7 @@ const NavbarLogin = () => {
               <img src={Cart} className="login-img" alt="sfvs" />
               <p style={{ color: "white" }}>العربه</p>
               <span class="position-absolute top-10 start-0 translate-middle badge rounded-pill bg-danger">
-                10
+                {cartNum || 0}
               </span>
             </Nav.Link>
           </Nav>
