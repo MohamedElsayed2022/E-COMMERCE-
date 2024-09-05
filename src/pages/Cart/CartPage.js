@@ -1,5 +1,5 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
 import CartItem from '../../components/Cart/CardItem'
 import CartCheckout from '../../components/Cart/CartCheckout'
 import ViewProductInCart from '../../hook/cart/view-product-in-cart'
@@ -8,9 +8,12 @@ import { ToastContainer } from 'react-toastify'
 
 const CartPage = () => {
   const [cartNum , cartItems] = ViewProductInCart()
-  const [handleSubmit] = ClearItemsCart()
+   const [handleSubmit , show , handleClose , handleShow , handelDeleteItem] = ClearItemsCart()
+ 
   return (
     <Container style={{minHeight:"670px"}}>
+       
+
       <Row>
                 <button className='btn btn-danger mt-2'onClick={handleSubmit}> حذف جميع المنتجات</button>
             </Row>

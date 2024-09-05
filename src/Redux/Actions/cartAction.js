@@ -1,7 +1,7 @@
 import useDeleteData from "../../hooks/useDeleteData"
 import { useGetDataToken } from "../../hooks/useGetData"
 import { useInsertData } from "../../hooks/useInsertData"
-import { ADD_TO_CART, CLEAR_ITEMS_CART, CLEAR_Items_CART, GET_PRODUCT_CART, GET_PRODUCTS_FROM_CART } from "../type"
+import { ADD_TO_CART, CLEAR_ITEMS_CART, CLEAR_Items_CART, DELETE_ITEM_FROM_CART, GET_PRODUCT_CART, GET_PRODUCTS_FROM_CART } from "../type"
 
 
 // get products from cart  
@@ -68,4 +68,20 @@ export const clearItemsCart =()=> async(dispatch)=>{
   }
  }
 
+
+     // delete item from cart  
+export const deleteItemsCart =(id)=> async(dispatch)=>{
+  try{
+    const response = await useDeleteData(`/api/v1/cart/${id}`)
+    dispatch( {
+     type : DELETE_ITEM_FROM_CART ,
+     payload : response 
+    })
+  }catch(e){
+     dispatch( {
+         type : DELETE_ITEM_FROM_CART ,
+         payload : e.response
+        })
+  }
+ }
    

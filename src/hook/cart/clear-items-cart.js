@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearItemsCart } from '../../Redux/Actions/cartAction'
+import { clearItemsCart, deleteItemsCart } from '../../Redux/Actions/cartAction'
 import notify from '../useNotification'
 
-const ClearItemsCart = () => {
+const ClearItemsCart = (prodID) => {
  const dispatch = useDispatch()
  const [loading , setLoading] = useState(true)
  const res = useSelector((state)=>state.cart.clearItems)
@@ -29,7 +29,18 @@ const ClearItemsCart = () => {
      }
  },[loading])
 
- return [handleSubmit]
+ const [show , setShow] = useState(false)
+ const handleClose = () => setShow(false)
+ const handleShow = () => setShow(true)
+ const handelDeleteItem = async()=>{
+  await dispatch(deleteItemsCart(prodID))
+  setShow(false)
+  window.location.reload(false)
+ }
+
+
+
+ return [handleSubmit , show , handleClose , handleShow , handelDeleteItem]
 }
 
 export default ClearItemsCart

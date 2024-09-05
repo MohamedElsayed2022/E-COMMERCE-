@@ -1,17 +1,34 @@
 import React , {useEffect, useState} from "react";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import mobile from "../../images/mobile.png";
 import deleteicon from "../../images/delete.png";
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneProduct } from "../../Redux/Actions/productsAction";
 import { ToastContainer } from "react-toastify";
+import ClearItemsCart from "../../hook/cart/clear-items-cart";
 
 const CardItem = ({product}) => {
  
-  
+  const [handleSubmit , show , handleClose , handleShow , handelDeleteItem] = ClearItemsCart(product._id)
+   
   return (
+    
     <Col xs="12" className="cart-item-body my-2 d-flex px-2">
-      
+         <Modal show={show} onHide={handleClose}>
+        <Modal.Header >
+          <Modal.Title> <div className='font'>تاكيد الحذف</div></Modal.Title>
+        </Modal.Header>
+        <Modal.Body><div className='font'> هل انتا متاكد من حذف المنتج من العربة ؟</div></Modal.Body>
+        <Modal.Footer>
+          <Button className='font' variant="dark" onClick={handleClose}>
+            تراجع
+          </Button>
+          <Button className='font' variant="danger" onClick={handelDeleteItem}>
+            حذف
+          </Button>
+        </Modal.Footer>
+      </Modal>
+        
       <img src={product?.product?.imageCover || mobile} width="160px" height="197px" alt="" />
       <div className="w-100">
         <Row className="justify-content-between">
@@ -23,6 +40,8 @@ const CardItem = ({product}) => {
                 height="24px"
                 width="20px"
                 alt="Delete Item"
+                style={{cursor: "pointer"}}
+                onClick={handleShow}
               />
               <div className="cat-text me-2 d-inline">ازالة </div>
             </div>
