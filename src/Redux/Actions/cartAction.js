@@ -1,7 +1,8 @@
 import useDeleteData from "../../hooks/useDeleteData"
 import { useGetDataToken } from "../../hooks/useGetData"
 import { useInsertData } from "../../hooks/useInsertData"
-import { ADD_TO_CART, CLEAR_ITEMS_CART, CLEAR_Items_CART, DELETE_ITEM_FROM_CART, GET_PRODUCT_CART, GET_PRODUCTS_FROM_CART } from "../type"
+import { useUpdateData } from "../../hooks/useUpdateData"
+import { ADD_TO_CART, CLEAR_ITEMS_CART, CLEAR_Items_CART, DELETE_ITEM_FROM_CART, GET_PRODUCT_CART, GET_PRODUCTS_FROM_CART, UPDATE_QUANTITY_IN_ITEM } from "../type"
 
 
 // get products from cart  
@@ -80,6 +81,22 @@ export const deleteItemsCart =(id)=> async(dispatch)=>{
   }catch(e){
      dispatch( {
          type : DELETE_ITEM_FROM_CART ,
+         payload : e.response
+        })
+  }
+ }
+
+     // update quantity of item in cart  
+export const updateQuantity =(id , body)=> async(dispatch)=>{
+  try{
+    const response = await useUpdateData(`/api/v1/cart/${id}` , body)
+    dispatch( {
+     type : UPDATE_QUANTITY_IN_ITEM ,
+     payload : response 
+    })
+  }catch(e){
+     dispatch( {
+         type : UPDATE_QUANTITY_IN_ITEM ,
          payload : e.response
         })
   }
