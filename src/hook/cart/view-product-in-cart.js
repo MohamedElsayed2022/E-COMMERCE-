@@ -9,6 +9,11 @@ const ViewProductInCart = (product) => {
     const [loading , setLoading] = useState(true)
     const [cartNum , setCartNum] = useState(null)
     const [cartItems , setCartItems] = useState([])
+    const [couponNameRes , setCouponNameRes] = useState('')
+    const [totalCartPrice , setTotalCartPrice]= useState(0)
+    const [totalCartPriceAfterDiscount , setTotalCartPriceAfterDiscount]= useState(0)
+
+
 
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -25,23 +30,30 @@ const ViewProductInCart = (product) => {
             if(prod && prod.status === "success"){
                 setCartNum(prod.numOfCartItems)
                 setCartItems(prod.data.products)
+                setTotalCartPrice(prod.data.totalCartPrice)
+                if(prod.data.coupon){
+                    setCouponNameRes(prod.data.coupon)
+                }else{
+                    setCouponNameRes('')
+                }
+                if(prod.data.totalAfterDiscount){
+                    setTotalCartPriceAfterDiscount(prod.data.totalAfterDiscount)
+                }else{
+                    setTotalCartPriceAfterDiscount('')
+                }
+
             }else{
                 setCartNum(0)
                 setCartItems([])
+                setTotalCartPrice(0)
+                setTotalCartPriceAfterDiscount('')
+                setCouponNameRes('')
             }
         }
 
     },[loading])
 
-
-
-
-  
-
-
-    
-
-    return [cartNum , cartItems]
+    return [cartNum , cartItems , couponNameRes , totalCartPrice , totalCartPriceAfterDiscount]
     
 }
 export default ViewProductInCart

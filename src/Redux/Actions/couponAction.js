@@ -2,7 +2,7 @@ import useDeleteData from "../../hooks/useDeleteData"
 import {useGetData, useGetDataToken }from "../../hooks/useGetData"
 import { useInsertData } from "../../hooks/useInsertData"
 import { useUpdateData } from "../../hooks/useUpdateData"
-import { ADD_COUPON, DELETE_COUPON, EDIT_COUPON, GET_ALL_COUPONS, GET_ONE_COUPON } from "../type"
+import { ADD_COUPON, APPLY_COUPON, DELETE_COUPON, EDIT_COUPON, GET_ALL_COUPONS, GET_ONE_COUPON } from "../type"
 
 
 //create a new coupon
@@ -89,6 +89,23 @@ export const editCoupon =(couponID , body)=> async(dispatch)=>{
   }catch(e){
      dispatch( {
          type : EDIT_COUPON ,
+         payload : e.response
+        })
+  }
+}
+
+//applay coupon
+export const applyCoupon =( body)=> async(dispatch)=>{
+  try{
+    const response = await useUpdateData(`/api/v1/cart/applyCoupon` , body )
+    dispatch( {
+     type : APPLY_COUPON,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : APPLY_COUPON ,
          payload : e.response
         })
   }

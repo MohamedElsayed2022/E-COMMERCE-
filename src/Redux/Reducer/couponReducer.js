@@ -1,5 +1,6 @@
 import {
   ADD_COUPON,
+  APPLY_COUPON,
   DELETE_COUPON,
   EDIT_COUPON,
   GET_ALL_COUPONS,
@@ -12,6 +13,7 @@ const inital = {
   deletedCoupon: [],
   editCoupon: [],
   oneCoupon: [],
+  applyCoupons :[],
   loading: true,
 };
 const couponReducer = (state = inital, action) => {
@@ -40,6 +42,12 @@ const couponReducer = (state = inital, action) => {
         editCoupon: action.payload,
         loading: false,
       };
+      case APPLY_COUPON:
+        return {
+          ...state,
+          applyCoupons: action.payload,
+          loading: false,
+        };
     case GET_ONE_COUPON:
       return {
         ...state,

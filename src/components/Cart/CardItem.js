@@ -122,7 +122,7 @@ const CardItem = ({ product }) => {
               </Button>
             </div>
             <div className="barnd-text d-inline pt-2">
-              {product?.price || 0} جنيه
+              {product?.price * itemCount || 0} جنيه
             </div>
           </Col>
         </Row>

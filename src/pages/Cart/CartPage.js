@@ -7,7 +7,7 @@ import ClearItemsCart from '../../hook/cart/clear-items-cart'
 import { ToastContainer } from 'react-toastify'
 
 const CartPage = () => {
-  const [cartNum , cartItems] = ViewProductInCart()
+  const [cartNum , cartItems , couponNameRes , totalCartPrice , totalCartPriceAfterDiscount] = ViewProductInCart()
    const [handleSubmit , show , handleClose , handleShow , handelDeleteItem] = ClearItemsCart()
  
   return (
@@ -31,7 +31,7 @@ const CartPage = () => {
 
         </Col>
         <Col md="3" > 
-         <CartCheckout/>
+         <CartCheckout couponNameRes={couponNameRes} totalCartPrice={totalCartPrice} totalCartPriceAfterDiscount={totalCartPriceAfterDiscount}  />
         </Col>
       </Row>
       <ToastContainer/>
