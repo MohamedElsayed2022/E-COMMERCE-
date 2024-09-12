@@ -5,7 +5,6 @@ import notify from '../useNotification'
 import { getOneProduct } from '../../Redux/Actions/productsAction'
 
 const ViewProductInCart = (product) => {
-    const prod = useSelector((state)=>state.cart.productInCart)
     const [loading , setLoading] = useState(true)
     const [cartNum , setCartNum] = useState(null)
     const [cartItems , setCartItems] = useState([])
@@ -13,6 +12,7 @@ const ViewProductInCart = (product) => {
     const [totalCartPrice , setTotalCartPrice]= useState(0)
     const [totalCartPriceAfterDiscount , setTotalCartPriceAfterDiscount]= useState(0)
 
+    const prod = useSelector((state)=>state.cart.productInCart)
 
 
     const dispatch = useDispatch()
