@@ -2,35 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import mobile from "../../images/mobile.png";
 import deleteicon from "../../images/delete.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getOneProduct } from "../../Redux/Actions/productsAction";
 import { ToastContainer } from "react-toastify";
 import ClearItemsCart from "../../hook/cart/clear-items-cart";
-import { updateQuantity } from "../../Redux/Actions/cartAction";
-import notify from "../../hook/useNotification";
+import UpdateCountCartHook from "../../hook/cart/update-count-cart-hook";
 
 const CardItem = ({ product }) => {
-  const [itemCount, setItemCount] = useState(null);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (product.count) {
-      setItemCount(product.count);
-    }
-  }, []);
   const [handleSubmit, show, handleClose, handleShow, handelDeleteItem] =
-    ClearItemsCart(product._id);
-  const onChangeCount = (e) => {
-    setItemCount(e.target.value);
-  };
-  const handleUpdateCart = async () => {
-    await dispatch(updateQuantity(product._id , {
-      count: itemCount
-  }));
-    notify("تم تعديل كمية المنتج" , "success")
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 500);
-  };
+  ClearItemsCart(product._id);
+  const [handleUpdateCart , itemCount , onChangeCount] = UpdateCountCartHook(product)
   return (
     <Col xs="12" className="cart-item-body my-2 d-flex px-2">
       <Modal show={show} onHide={handleClose}>
@@ -108,22 +87,19 @@ const CardItem = ({ product }) => {
         </Row>
         <Row className="justify-content-between">
           <Col sm="12" className=" d-flex flex-row justify-content-between">
-            <div className="d-flex d-inline pt-2">
-              <div className="cat-text d-inline">الكمية :</div>
+          <div className="d-inline pt-2 d-flex">
+              <div className="cat-text mt-2  d-inline">الكميه</div>
               <input
                 value={itemCount}
                 onChange={onChangeCount}
-                className="mx-2 "
+                className="mx-2 text-center"
                 type="number"
-                style={{ width: "40px", height: "25px" }}
+                style={{ width: "60px", height: "40px" }}
               />
-              <Button onClick={handleUpdateCart} className="btn btn-dark">
-                تطبيق
-              </Button>
+              <Button onClick={handleUpdateCart} className='btn btn-dark' >تطبيق</Button>
             </div>
-            <div className="barnd-text d-inline pt-2">
-              {product?.price * itemCount || 0} جنيه
-            </div>
+            <div className="d-inline pt-2 barnd-text">{product.price || 0} جنية</div>
+          
           </Col>
         </Row>
       </div>

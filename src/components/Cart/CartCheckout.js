@@ -10,7 +10,7 @@ import ApplyCouponHook from "../../hook/cart/apply-coupon-hook";
 
 const CartCheckout = ({couponNameRes,totalCartPrice,totalCartPriceAfterDiscount}) => {
     const [onChangeCoupon , couponName , handleSubmitCoupon] = ApplyCouponHook()
-  const [handleSubmit , show , handleClose , handleShow , handelDeleteItem] = ClearItemsCart()
+  const [handleSubmit , handelDeleteItem] = ClearItemsCart()
   useEffect(()=>{
     if(couponNameRes){
       onChangeCoupon(couponNameRes)

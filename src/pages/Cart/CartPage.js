@@ -27,7 +27,7 @@ const CartPage = () => {
               <CartItem key={index} product={product} />
             ))
           ) : (
-            <h2 className="text-danger text-center mt-2">
+            <h2 className="text-dark  mt-2">
               لاتوجد منتجات فى العربة
             </h2>
           )}
