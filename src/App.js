@@ -1,4 +1,4 @@
-import {  Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/Home/HomePage";
 import Footer from "./components/utils/Footer";
 import NavbarLogin from "./components/utils/NavbarLogin";
@@ -29,8 +29,11 @@ import VerifyResetPassword from "./pages/Auth/VerifyResetPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import AdminAddCoupon from "./pages/Admin/AdminAddCouponPage";
 import AdminEditCouponPage from "./pages/Admin/AdminEditCouponPage";
+import ProtectedRouteHook from "./hook/auth/protected-route-hook";
+import ProtectedRoute from "./components/utils/ProtectedRoute";
 
 function App() {
+  const [isAdmin, isUser, userData] = ProtectedRouteHook()
   return (
     <div className="font">
       <NavbarLogin />
@@ -42,42 +45,37 @@ function App() {
         <Route path="/allbrand" element={<AllBrandPage />} />
         <Route path="/products" element={<ShopProductPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
-        <Route path="/cart" element={<CartPage/>}/>
-        <Route path="/order/paymethoud" element={<ChoosePayMethodPage/>}/>
-        <Route path="/admin/allproducts" element={<AdminAllProductsPage/>}/>
-        <Route path="/admin/allorders" element={<AdminAllOrdersPage/>}/>
-        <Route path="/admin/allorders/:id" element={<AdminOrderDetailsPage/>}/>
-        <Route path="/admin/addbrand" element={<AdminAddBrandPage/>}/>
-        <Route path="/admin/addcategory" element={<AdminAddCategoryPage/>}/>
-        <Route path="/admin/addsubcategory" element={<AdminAddSubCategoryPage/>}/>
-        <Route path="/admin/addproduct" element={<AdminAddProductPage/>}/>
-        <Route path="/admin/editproduct/:id" element={<AdminEditProductPage />} />  
-        <Route path="/admin/addcoupon" element={<AdminAddCoupon />} />  
-        <Route path="/admin/edit-coupon/:id" element={<AdminEditCouponPage />} />  
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/user/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/user/verify-reset-password" element={<VerifyResetPassword />} />
+        <Route path="/user/reset-password" element={<ResetPassword />} />
+        <Route path="/order/paymethoud" element={
+          <ProtectedRoute auth={isUser}>
+            <ChoosePayMethodPage/>
+          </ProtectedRoute>
+          } />
 
-        <Route path="/user/allorders" element={<UserAllOrdersPage/>}/>
-        <Route path="/user/favoriteproducts" element={<UserFavoriteProductsPage/>}/>
-        <Route path="/user/addresses" element={<UserAllAddressPage/>}/>
-        <Route path="/user/edit-address/:id" element={<UserEditAddressPage/>}/>
-        <Route path="/user/add-address" element={<UserAddAddressPage/>}/>
-        <Route path="/user/profile" element={<UserProfilePage />} />  
-        <Route path="/user/forget-password" element={<ForgetPasswordPage />} />  
-        <Route path="/user/verify-reset-password" element={<VerifyResetPassword />} />  
-        <Route path="/user/reset-password" element={<ResetPassword />} />  
-        AdminAllCategoriesPage
-        /adinm/edit-coupon
+        <Route element={<ProtectedRoute auth={isAdmin} />}>
+          <Route path="/admin/allproducts" element={<AdminAllProductsPage />} />
+          <Route path="/admin/allorders" element={<AdminAllOrdersPage />} />
+          <Route path="/admin/allorders/:id" element={<AdminOrderDetailsPage />} />
+          <Route path="/admin/addbrand" element={<AdminAddBrandPage />} />
+          <Route path="/admin/addcategory" element={<AdminAddCategoryPage />} />
+          <Route path="/admin/addsubcategory" element={<AdminAddSubCategoryPage />} />
+          <Route path="/admin/addproduct" element={<AdminAddProductPage />} />
+          <Route path="/admin/editproduct/:id" element={<AdminEditProductPage />} />
+          <Route path="/admin/addcoupon" element={<AdminAddCoupon />} />
+          <Route path="/admin/edit-coupon/:id" element={<AdminEditCouponPage />} />
+        </Route>
 
-
-        
-       
-
-
-
-
-
-
-
-
+        <Route element={<ProtectedRoute auth={isUser} />}>
+          <Route path="/user/allorders" element={<UserAllOrdersPage />} />
+          <Route path="/user/favoriteproducts" element={<UserFavoriteProductsPage />} />
+          <Route path="/user/addresses" element={<UserAllAddressPage />} />
+          <Route path="/user/edit-address/:id" element={<UserEditAddressPage />} />
+          <Route path="/user/add-address" element={<UserAddAddressPage />} />
+          <Route path="/user/profile" element={<UserProfilePage />} />
+        </Route>
 
       </Routes>
       <Footer />
