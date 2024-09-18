@@ -25,6 +25,7 @@ const CategoryContainer = ({data , loading}) => {
                 title={item.name}
                 background={colors[Math.floor(Math.random()*5) +1]}
                 img={item.image}
+                id={item._id}
                 key={index}
                 />
               );
