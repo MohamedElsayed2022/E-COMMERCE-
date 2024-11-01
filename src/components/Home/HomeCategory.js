@@ -18,6 +18,7 @@ const HomeCategory = () => {
               category.data.slice(0, 5).map((item, index) => (
                 <CategoryCard
                   key={item.id || index} // Ensure each item has a unique key
+                  id={item._id}
                   title={item.name}
                   background={colors[index]}
                   img={item.image}

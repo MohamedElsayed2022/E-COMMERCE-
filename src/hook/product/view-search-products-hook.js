@@ -21,7 +21,7 @@ const ViewSearchProductsHook = () => {
     getProduct();
   }, []); // Only run once on component mount
 
-  const allProducts = useSelector((state) => state.allproducts.allProducts);
+  const allProducts = useSelector((state) => state.allproducts?.allProducts);
 
   const items = allProducts?.data || [];
   const pagination = allProducts?.paginationResult?.numberOfPages || [];

@@ -20,13 +20,15 @@ const CategoryContainer = ({data , loading}) => {
         {loading === false ? (
           data ? (
             data.slice(0, 5).map((item, index) => {
+              console.log("item:", item); // تحقق من شكل البيانات
               return (
                 <CategoryCard
-                title={item.name}
-                background={colors[Math.floor(Math.random()*5) +1]}
-                img={item.image}
-                id={item._id}
-                key={index}
+                  key={index}
+                  id={item._id} // تأكد أن المفتاح هنا يتطابق مع بياناتك
+                  title={item.name}
+                  img={item.image}
+                  background={colors[Math.floor(Math.random() * colors.length)]}
+                  des={item.image}
                 />
               );
             })

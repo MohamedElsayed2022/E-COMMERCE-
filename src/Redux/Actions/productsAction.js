@@ -1,6 +1,6 @@
-import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ERROR, GET_ONE_PRODUCT, GET_PRODUCT_LIKE, UPDATE_PRODUCT } from "../type"
+import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_CATEGORY, GET_ERROR, GET_ONE_PRODUCT, GET_PRODUCT_LIKE, UPDATE_PRODUCT } from "../type"
 import { useInsertDataWithImage } from "../../hooks/useInsertData"
-import {useGetData }from "../../hooks/useGetData"
+import {useGetData, useGetDataToken }from "../../hooks/useGetData"
 import useDeleteData from "../../hooks/useDeleteData"
 import { useUpdateDataWithImage } from "../../hooks/useUpdateData"
 
@@ -152,6 +152,25 @@ export const updateProducts =(id , data)=> async(dispatch)=>{
      dispatch( {
          type : GET_ERROR ,
          payload :"ERROR : " + e 
+        })
+  }
+}
+
+//update specific product depend on product id
+
+export const getAllProductsByCategory =(limit , page , categoryID)=> async(dispatch)=>{
+  try{
+    const response = await useGetDataToken(`/api/v1/products?limit=${limit}&page=${page}&category=${categoryID}`)
+    console.log(response.data)
+    dispatch( {
+     type : GET_ALL_PRODUCTS_BY_CATEGORY,
+     payload : response ,
+     loading : true
+    })
+  }catch(e){
+     dispatch( {
+         type : GET_ALL_PRODUCTS_BY_CATEGORY ,
+         payload : e.response 
         })
   }
 }
