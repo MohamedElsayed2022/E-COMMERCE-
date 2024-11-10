@@ -13,9 +13,7 @@ const ProductText = () => {
   const { id } = useParams();
   const [item, images, cat, brand] = ViewProductsDetailsHook(id);
 
-  const [handleAddtoCart, indexColor, handleColor] = AddToCartHook(id , item);
-
-  
+  const [handleAddtoCart, indexColor, handleColor] = AddToCartHook(id, item);
 
   return (
     <div>
@@ -56,6 +54,12 @@ const ProductText = () => {
             style={{ backgroundColor: "#E52C2C" }}
           ></div>
         </Col>
+        <Row className="mt-4">
+        <Col>
+          <div className="cat-text d-inline">الكمية المتاحة :</div>
+          <div className="brand-text d-inline">{item.quantity}</div>
+        </Col>
+      </Row>
       </Row>
       <Row className="mt-4">
         <div className="cat-text">المواصفات :</div>
@@ -67,9 +71,13 @@ const ProductText = () => {
       </Row>
       <Row className="mt-4">
         <Col md="12">
-          <div className="product-price d-inline px-3 py-3 border">
-            {item.price} جنية
-          </div>
+          {item.priceAfterDiscount >= 1 ? (
+            <div className="product-price d-inline px-3 py-3 border">
+             <span style={{textDecorationLine:"line-through"}}>{item.price}</span> {item.priceAfterDiscount} جنية
+            </div>
+          ) : (
+            <div className="product-price d-inline px-3 py-3 border"><span>{item.price}</span>جنية</div> 
+          )}
           <div
             className="product-cart-add px-3 py-3 d-inline mx-3"
             onClick={handleAddtoCart}

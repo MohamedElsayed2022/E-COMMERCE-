@@ -32,6 +32,8 @@ import AdminEditCouponPage from "./pages/Admin/AdminEditCouponPage";
 import ProtectedRouteHook from "./hook/auth/protected-route-hook";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 import ProductByCategory from "./pages/Products/ProductByCategory";
+import ProductByBrand from "./pages/Products/ProductByBrand";
+
 
 function App() {
   const [isAdmin, isUser, userData] = ProtectedRouteHook()
@@ -51,6 +53,8 @@ function App() {
         <Route path="/user/verify-reset-password" element={<VerifyResetPassword />} />
         <Route path="/user/reset-password" element={<ResetPassword />} />
         <Route path="/products/category/:id" element={<ProductByCategory />} />
+        <Route path="/products/brand/:id" element={<ProductByBrand />} />
+
 
 
         <Route path="/order/paymethoud" element={

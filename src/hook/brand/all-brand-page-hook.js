@@ -4,21 +4,24 @@ import { useEffect } from 'react';
 const AllBrandHook = () => {
   
     const dispatch = useDispatch();
-    const brand = useSelector((state) => state.allbrand.brand);
+    const brand = useSelector((state) => state.allbrand.brands );
     const loading = useSelector((state) => state.allbrand.loading);
+    
     let pageCount = 0
 
       if(brand.paginationResult){
         pageCount = brand.paginationResult.numberOfPages
         console.log(pageCount)
+        
       }
+
 
     useEffect(() => {
       dispatch(getAllBrand(4));
     }, []);
   
-    const getPage = (page)=>{
-      dispatch(getAllBrandPage(page));
+    const getPage = async(page)=>{
+      await dispatch(getAllBrandPage(page));
       console.log(page)
   
     }

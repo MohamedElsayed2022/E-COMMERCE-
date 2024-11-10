@@ -1,8 +1,13 @@
 import React from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
 import BrandCard from "./BrandCard";
+import HomeBrandHook from "../../hook/brand/home-brand-hook";
 
 const BrandContainer = ({data , loading}) => {
+  // const [brand, ] = HomeBrandHook();
+
+  console.log("Data :- " , data)
+
 
   return (
     <div>
@@ -13,7 +18,7 @@ const BrandContainer = ({data , loading}) => {
                     loading === false ? (
                       data? (
                         data.slice(0, 5).map((item, index) => {
-                          return (<BrandCard key={index} img={item.image} />)
+                          return (<BrandCard id={item._id} key={index} img={item.image} />)
                             })
                         ) : <h4>لا يوجد ماركات</h4>
                     ) :

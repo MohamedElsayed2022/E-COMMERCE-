@@ -7,6 +7,10 @@ import HomeBrandHook from '../../hook/brand/home-brand-hook'
 const BrandFeatured = ({ title, btntitle  }) => {
 
     const [brand, loading] = HomeBrandHook();
+    console.log(brand)
+    console.log("Loading" , loading)
+    console.log(brand)
+
 
     return (
         <Container>
@@ -16,8 +20,8 @@ const BrandFeatured = ({ title, btntitle  }) => {
                 {
                     loading === false ? (
                         brand ? (
-                            brand.data.slice(0, 5).map((item, index) => {
-                                return (<BrandCard key={index} img={item.image} />)
+                            brand.slice(0, 5).map((item, index) => {
+                                return (<BrandCard id={item._id} key={index} img={item.image} />)
                             })
                         ) : <h4>لا يوجد ماركات</h4>
                     ) :

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import {useSelector , useDispatch} from 'react-redux'
 import { getAllCategory, getAllCategoryPage } from '../../Redux/Actions/categoryAction'
-const AllCategoryPage = () => {
+const AllCategoryPageHook = () => {
   
     const dispatch = useDispatch();
     const category = useSelector((state) => state.allcategory.category);
     const loading = useSelector((state) => state.allcategory.loading);
     let pageCount = 0
       
-      if(category.paginationResult)
-        pageCount = category.paginationResult.numberOfPages
+      if(category)
+        pageCount = category?.paginationResult?.numberOfPages
 
     useEffect(() => {
       dispatch(getAllCategory(6));
@@ -22,4 +22,4 @@ const AllCategoryPage = () => {
     return [getPage , loading , pageCount  , category ]
 }
 
-export default AllCategoryPage
+export default AllCategoryPageHook

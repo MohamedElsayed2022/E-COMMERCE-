@@ -6,8 +6,12 @@ const HomeBrandHook = () => {
   useEffect(() => {
     dispatch(getAllBrand());
   }, []);
-  const brand = useSelector((state) => state.allbrand.brand);
+  const brands = useSelector((state) => state.allbrand.brands);
   const loading = useSelector((state) => state.allbrand.loading);
+   let brand
+  if(brands)
+    brand = brands.data
+
   
 
   return [  brand , loading ]
