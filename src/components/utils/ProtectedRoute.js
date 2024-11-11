@@ -6,7 +6,7 @@ const ProtectedRoute = ({ auth ,children }) => {
 
   if (auth === false) {
     // إذا لم يكن المستخدم مسجلاً للدخول، يتم توجيهه إلى صفحة تسجيل الدخول
-    return <Navigate to="/login" replace />;
+    // return <Navigate to="/login" replace />;
     // notify("هذا المكان لايمكن الوصول اليه" , "error")
   }
 

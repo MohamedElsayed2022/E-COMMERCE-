@@ -11,6 +11,7 @@ const ViewProductInCart = (product) => {
     const [couponNameRes , setCouponNameRes] = useState('')
     const [totalCartPrice , setTotalCartPrice]= useState(0)
     const [totalCartPriceAfterDiscount , setTotalCartPriceAfterDiscount]= useState(0)
+    const [cartID , setCartID] = useState('0')
 
     const prod = useSelector((state)=>state.cart.productInCart)
 
@@ -30,6 +31,7 @@ const ViewProductInCart = (product) => {
             if(prod && prod.status === "success"){
                 setCartNum(prod.numOfCartItems)
                 setCartItems(prod.data.products)
+                setCartID(prod.data._id)
                 setTotalCartPrice(prod.data.totalCartPrice)
                 if(prod.data.coupon){
                     setCouponNameRes(prod.data.coupon)
@@ -43,7 +45,8 @@ const ViewProductInCart = (product) => {
                 }
 
             }else{
-                setCartNum(0)
+                setCartNum('0')
+                setCartID(0)
                 setCartItems([])
                 setTotalCartPrice(0)
                 setTotalCartPriceAfterDiscount('')
@@ -53,7 +56,7 @@ const ViewProductInCart = (product) => {
 
     },[loading])
 
-    return [cartNum , cartItems , couponNameRes , totalCartPrice , totalCartPriceAfterDiscount]
+    return [cartNum , cartItems , couponNameRes , totalCartPrice , totalCartPriceAfterDiscount , cartID]
     
 }
 export default ViewProductInCart

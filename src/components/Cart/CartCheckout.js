@@ -8,8 +8,8 @@ import ViewProductInCart from "../../hook/cart/view-product-in-cart";
 import ClearItemsCart from "../../hook/cart/clear-items-cart";
 import ApplyCouponHook from "../../hook/cart/apply-coupon-hook";
 
-const CartCheckout = ({couponNameRes,totalCartPrice,totalCartPriceAfterDiscount}) => {
-    const [onChangeCoupon , couponName , handleSubmitCoupon] = ApplyCouponHook()
+const CartCheckout = ({cartItems , couponNameRes,totalCartPrice,totalCartPriceAfterDiscount}) => {
+    const [onChangeCoupon , couponName , handleSubmitCoupon ,handleCheckout] = ApplyCouponHook(cartItems)
   const [handleSubmit , handelDeleteItem] = ClearItemsCart()
   useEffect(()=>{
     if(couponNameRes){
@@ -36,13 +36,13 @@ const CartCheckout = ({couponNameRes,totalCartPrice,totalCartPriceAfterDiscount}
             ? `${totalCartPrice} جنيه ... بعد الخصم ${totalCartPriceAfterDiscount} جنيه`
             : `${totalCartPrice} جنيه`}{" "}
         </div>
-        <Link
+        {/* <Link
           to="/order/paymethoud"
           style={{ textDecoration: "none" }}
           className="product-cart-add  d-inline "
-        >
-          <button className="product-cart-add w-100 px-2"> اتمام الشراء</button>
-        </Link>
+        > */}
+          <button className="product-cart-add w-100 px-2" onClick={handleCheckout}> اتمام الشراء</button>
+        {/* </Link> */}
         
           <button className="product-cart-add w-100 px-2 mt-1" onClick={handleSubmit}> مسح العربة</button>
       </Col>

@@ -3,7 +3,7 @@ import notify from '../useNotification';
 import { applyCoupon } from '../../Redux/Actions/couponAction';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ApplyCouponHook = () => {
+const ApplyCouponHook = (cartItems) => {
     const [couponName, setCouponName] = useState(null);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
@@ -43,7 +43,18 @@ const ApplyCouponHook = () => {
       }
     }, [loading]);
 
-    return [onChangeCoupon , couponName , handleSubmitCoupon]
+    const handleCheckout = ()=>{
+      if(cartItems.length >=1){
+        setTimeout(() => {
+          window.location.href="/order/paymethoud"
+        }, 1000);
+        
+      }else{
+        notify("من فضلك اضف منتجات الى العربة اولا", "warn")
+      }
+    }
+
+    return [onChangeCoupon , couponName , handleSubmitCoupon ,handleCheckout]
 }
 
 export default ApplyCouponHook

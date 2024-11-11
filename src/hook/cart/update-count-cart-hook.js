@@ -16,6 +16,10 @@ const UpdateCountCartHook = (product) => {
       setItemCount(e.target.value);
     };
     const handleUpdateCart = async () => {
+      if(itemCount > product.count){
+        notify("لا توجد هذه الكمية من المنتج" , "warn")
+        return
+      }
       await dispatch(updateQuantity(product._id , {
         count: itemCount
     }));
