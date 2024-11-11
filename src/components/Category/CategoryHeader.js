@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import AllCategoryPage from "../../hook/category/all-category-page-hook";
 import { Link } from "react-router-dom";
+import AllCategoryPageHook from "../../hook/category/all-category-page-hook";
 
 const CategoryHeader = () => {
-  const [getPage, loading, pageCount, category] = AllCategoryPage();
+  const [getPage, loading, pageCount, category] = AllCategoryPageHook();
   const [items , setItems] = useState([])
   useEffect(()=>{
      if(category)

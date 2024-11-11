@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import CategoryContainer from '../../components/Category/CategoryContainer'
 import PaginationComponent from '../../components/utils/Pagination'
-import AllCategoryPage from '../../hook/category/all-category-page-hook'
+import AllCategoryPageHook from '../../hook/category/all-category-page-hook'
 
-const AllCategory = () => {
-  const [getPage , loading , pageCount  , category] = AllCategoryPage()
+const AllCategoryPage = () => {
+  const [getPage , loading , pageCount  , category] = AllCategoryPageHook()
 
   return (
    <div>
-      <CategoryContainer data={category.data} loading={loading}/>
+      {/* <CategoryContainer data={category.data} loading={loading}/> */}
+      <CategoryContainer data={category} loading={loading}/>
+
       {
         pageCount > 1 ? (<PaginationComponent pageCount={pageCount} onPress={getPage} /> ):null
       }
@@ -16,4 +18,4 @@ const AllCategory = () => {
   )
 }
 
-export default AllCategory
+export default AllCategoryPage
