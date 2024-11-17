@@ -18,9 +18,10 @@ const OrderPayCashHook = () => {
     const dispatch = useDispatch()
     const handelChooseAddress =(e)=>{
         console.log(e.target.value)
-        setAddressDetails([])
-        if(e.target.value != '0')
-        get(e.target.value)
+        // setAddressDetails([])
+        if(e.target.value !== '0'){
+          get(e.target.value)
+        }
 
     }
     const get = async (id)=>{

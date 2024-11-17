@@ -52,17 +52,10 @@ const ChoosePayMethod = () => {
             name="address"
             id="address"
             className="select mt-3 px-2 "
-            onChange={handelChooseAddress}
+            onChange={ handelChooseAddress}
           >
             <option value="0"> اختر عنوان للشحن</option>
-            {/* {Addresses
-              ? Addresses.map((address) => (
-                  <option key={address._id} value={address._id}>
-                    {" "}
-                    {address.alias}
-                  </option>
-                ))
-              : null} */}
+          
               {
                 Addresses ? Addresses.map((address) =>{
                     return <option key={address._id} value={address._id}>{address.alias}</option>
