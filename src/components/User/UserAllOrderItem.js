@@ -40,7 +40,7 @@ const UserAllOrderItem = ({order}) => {
           </div>
         )
        }
-      <Row className="d-flex justify-content-between">
+      <Row className="d-flex justify-content-between align-items-center">
         <Col xs="6" className="d-flex">
           <div>
             <div className="d-inline">التوصيل</div>
