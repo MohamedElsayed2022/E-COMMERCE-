@@ -89,35 +89,35 @@ const AdminOrderDetails = () => {
                     </div>
                 </Col>
                 
-                <div className="d-flex mt-2 justify-content-center">
-                    <div>
+                <div className="d-flex mt-2 justify-content-center gap-2 pb-2">
+                    <div className='d-flex align-items-center'>
                     <select
                     onChange={onChangePaid}
                         name="pay"
                         id="paid"
-                        className="select input-form-area mt-1  text-center px-4 w-50">
-                        <option value="0">حالة الدفع</option>
+                        className="select input-form-area mt-1  text-center px-3 " style={{width:"75%"}}>
+                        <option value="0"> الدفع</option>
                         <option value="true">تم الدفع</option>
                         <option value="false">لم يتم الدفع</option>
 
                         
                     </select>
-                    <button onClick={changePayOrder} className="btn-a px-2 d-inline mx-1 ">حفظ </button>
+                    <button onClick={changePayOrder} className="btn-b  px-2 d-inline mx-1 ">حفظ </button>
 
                     </div>
-                    <div>
+                    <div className='d-flex align-items-center'>
                     <select
                     onChange={onChangeDelivered}
                         name="deliver"
                         id="deliver"
-                        className="select input-form-area mt-1  text-center px-4 w-50">
-                        <option value="0">حالة التوصيل</option>
+                        className="select input-form-area mt-1   text-center px-4" style={{width:"75%"}}>
+                        <option value="0"> التوصيل</option>
                         <option value="true"> تم التوصيل</option>
                         <option value="false">لم يتم التوصيل</option>
 
                         
                     </select>
-                    <button onClick={changeDeliOrder} className="btn-a px-2 d-inline mx-1 ">حفظ </button>
+                    <button onClick={changeDeliOrder} className="btn-b  px-2 d-inline mx-1 ">حفظ </button>
 
                     </div>
                     

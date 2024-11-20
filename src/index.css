@@ -565,6 +565,17 @@ body {
 .btn-a:hover {
   color: rgb(164, 164, 164);
 }
+
+.btn-b {
+  border: none;
+  color: white;
+  height: 40px;
+  border-radius: 9px;
+  background-color: #272727;
+}
+.btn-b:hover {
+  color: rgb(164, 164, 164);
+}
 /* end admin  */
 
 /* rates  */
