@@ -267,6 +267,15 @@ body {
   line-height: 19px;
   text-align: right;
 }
+.cat-rate-admin {
+  color: blue;
+  font-family: "Almarai";
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: right;
+}
 
 .barnd-text {
   color: #555550;
@@ -416,6 +425,12 @@ body {
 }
 .cart-item-body {
   height: 229px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+.cart-item-body-admin {
+  height: 135px;
   width: 100%;
   border-radius: 20px;
   background-color: #ffffff;

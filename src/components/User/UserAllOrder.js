@@ -17,20 +17,26 @@ const UserAllOrder = () => {
     <div>
       <div className="admin-content-text pb-2"> عدد الطلبات # {results} </div>
       <Row className="justify-content-between">
-        {orderData
+        {orderData.length >=1
           ? orderData.map((order) => (
               <UserAllOrderItem key={order._id} order={order} />
             ))
-          : <h3 className="mt-1">لاتوجد طلبات....</h3>}
-        {/* <UserAllOrderItem/>
-                <UserAllOrderItem/>
-                <UserAllOrderItem/>
-                <UserAllOrderItem/>
-                <UserAllOrderItem/>
-                <UserAllOrderItem/>
-                <UserAllOrderItem/> */}
-
-                {/* <Pagination onPress={getPage} pageCount={paginate.numberOfPages}/> */}
+          :
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div> 
+          }
       </Row>
       {
          paginate?.numberOfPages >=2 ? (

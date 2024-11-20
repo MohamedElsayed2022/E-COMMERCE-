@@ -7,26 +7,38 @@ const UserAllOrderItem = ({order}) => {
   
   console.log("Order Status :- " , order.isDelivered)
   console.log(order.cartItems)
-  // const [items , setItems] = useState([])
-  // useEffect(()=>{
-  //   if(order.cartItems)
-  //     setItems(order.cartItems)
-  // },[])
- 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "numeric", day: "numeric" }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+}
 
-  // console.log("Items :- " , items)
   return (
     <>
-     <div className="user-order mt-2">
+     <div className="user-order mt-2 p-3">
       <Row>
-        <div className="py-2 order-title">طلب رقم #{order.id || 0}</div>
+        <div className="py-2 order-title">طلب رقم #{order.id || 0}... تم بتاريخ...({formatDate(order.createdAt)})</div>
       </Row>
        {
         order && order.cartItems ? (
           order.cartItems.map((cart , index)=>{
             return <UserAllOrderCard key={index} cart={cart} />
           })
-        ) : (<h3>لا توجد منتجات فى العربة</h3>)
+        ) : (
+          <div class="d-flex justify-content-center gap-2">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        )
        }
       <Row className="d-flex justify-content-between">
         <Col xs="6" className="d-flex">
